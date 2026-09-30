@@ -151,8 +151,13 @@ def _pct(a, b):
 
 def score(p: pd.DataFrame) -> dict:
     """Errors of monthly predictions `p` (columns true/pred), overall and by region x season."""
+    # annual_median_abs_err_pct is a median over year x region totals (hills and plains scored separately),
+    # so it rewards getting the regional split right. The national figure sums both regions first.
     annual = p.groupby(["year", "region"])[["true", "pred"]].sum()
+    national = p.groupby("year")[["true", "pred"]].sum()
     out = {
+        "national_annual_median_abs_err_pct": round(
+            float(np.median(np.abs(national.pred / national.true.clip(lower=1) - 1)) * 100), 1),
         "monthly_MAE": round(float(np.mean(np.abs(p.pred - p.true))), 1),
         "monthly_R2": round(float(1 - np.sum((p.pred - p.true) ** 2) / np.sum((p.true - p.true.mean()) ** 2)), 3),
         "annual_total_bias_pct": round(_pct(annual.pred.sum(), annual.true.sum()), 1),

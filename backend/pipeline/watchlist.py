@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 from backend import config as C
-from backend.pipeline.model import neighbour_mean
+from backend.pipeline.model import neighbour_mean, precision_at
 from backend.pipeline.terrain import cell_id, footprint_slope, sample_population
 
 TOP_N = 50            # roughly what a district team can field-check before the monsoon
@@ -161,21 +161,25 @@ def backtest(pts: pd.DataFrame, base: pd.DataFrame, viirs_days: pd.DataFrame) ->
         heavy = now.fire_days.fillna(0) >= C.HEAVY_BURN_DAYS
         steep = heavy & (now.fire_slope >= INSPECT_MIN_SLOPE)
         outcomes = {"heavy": heavy, "steep": steep, "steep_people": steep & (now.people_r1 >= BACKTEST_MIN_PEOPLE)}
-        rankings = {"inspection_ranking": score(df, "forecast", DEFAULT), "burn_forecast_only": df.forecast_score}
+        # slope_people_only: same slope x people terms at earlier fire locations, fire history ignored.
+        rankings = {"inspection_ranking": score(df, "forecast", DEFAULT), "burn_forecast_only": df.forecast_score,
+                    "slope_people_only": score(df.assign(forecast_score=1.0), "forecast", DEFAULT)}
         rows[t] = {"base_rate": {k: round(float(v.mean()), 4) for k, v in outcomes.items()}}
         for rname, sc in rankings.items():
-            top = sc.sort_values(ascending=False, kind="stable").index[:TOP_N]
-            rows[t][rname] = {k: int(v.reindex(top).sum()) for k, v in outcomes.items()}
+            # ties at the cut-off are split evenly, as in the forecast comparison (model.precision_at)
+            rows[t][rname] = {k: round(precision_at(v.values, sc.values, TOP_N) * TOP_N, 1) for k, v in outcomes.items()}
     mean = lambda f: round(float(np.mean([f(r) for r in rows.values()])), 1)  # noqa: E731
     return {
-        "definition": f"top {TOP_N} of each ranking, rebuilt from earlier seasons only, vs what burned in season t; "
+        "definition": f"top {TOP_N} of each ranking, rebuilt from earlier seasons only, vs what burned in season t "
+                      "(ties at the cut-off split evenly); slope_people_only ranks earlier fire locations by "
+                      "slope x people without the fire-history term; "
                       f"steep = median season-t fire slope >= {INSPECT_MIN_SLOPE:.0f} deg; people = >= "
                       f"{BACKTEST_MIN_PEOPLE} within ~1.5 km of the season-t fires. Tests finding later burning on "
                       "steep, populated ground, not landslide usefulness.",
         "per_year": rows,
         f"mean_hits_in_top_{TOP_N}": {
             r: {k: mean(lambda x, r=r, k=k: x[r][k]) for k in ["heavy", "steep", "steep_people"]}
-            for r in ["inspection_ranking", "burn_forecast_only"]},
+            for r in ["inspection_ranking", "burn_forecast_only", "slope_people_only"]},
         f"mean_expected_by_chance_in_top_{TOP_N}": {
             k: mean(lambda x, k=k: x["base_rate"][k] * TOP_N) for k in ["heavy", "steep", "steep_people"]},
     }

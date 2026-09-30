@@ -344,7 +344,7 @@ function fillSummary(s) {
   const ch = s.chronological_holdout;
   const hb = ch.ours.by_region_season["hills/burn"];
   $("#t-err").textContent = `${ch.ours.annual_median_abs_err_pct}%`;
-  $("#t-err-note").textContent = `Fit on ${ch.train[0]}–${ch.train[ch.train.length - 1]}. Hills in the burn season: ${hb.median_abs_err_pct}%. A median, not an error bound. Naive join: ${num(ch.naive.annual_median_abs_err_pct)}%.`;
+  $("#t-err-note").textContent = `Fit on ${ch.train[0]}–${ch.train[ch.train.length - 1]}. Hills in the burn season: ${hb.median_abs_err_pct}%. Hills and plains scored separately; Bangladesh-wide total: ${ch.ours.national_annual_median_abs_err_pct}%. A median, not an error bound. Naive join: ${num(ch.naive.annual_median_abs_err_pct)}%.`;
   $("#t-jump").textContent = `${s.jump.harmonized.toFixed(2)}×`;
   $("#t-jump-note").textContent = `95% calibration-factor interval ${s.jump.harmonized_95ci[0]}–${s.jump.harmonized_95ci[1]}×; naive ${s.jump.naive_stitched}×. MODIS alone ${s.jump.modis_pre_drift_reference}× (on its own years, where the match is built in).`;
   $("#t-worse").textContent = `${num(s.cells_that_look_worse_after_2012.naive_stitch)} → ${num(s.cells_that_look_worse_after_2012.harmonized)}`;
@@ -367,15 +367,15 @@ function fillSummary(s) {
   const bt = s.watchlist.forecast_inspection_backtest;
   const hits = bt.mean_hits_in_top_50;
   $("#t-fc").textContent = `${hits.inspection_ranking.steep} of 50`;
-  $("#t-fc-note").textContent = `Average per season, list rebuilt from earlier seasons only. Burn forecast alone: ${hits.burn_forecast_only.steep}; chance: ${bt.mean_expected_by_chance_in_top_50.steep}. Partly by construction. Burning at all (heavy): ${hits.inspection_ranking.heavy} of 50. Tests later burning, not landslides.`;
+  $("#t-fc-note").textContent = `Average per season, list rebuilt from earlier seasons only. Slope × people alone: ${hits.slope_people_only.steep}; burn forecast alone: ${hits.burn_forecast_only.steep}; chance: ${bt.mean_expected_by_chance_in_top_50.steep}. Partly by construction. Burning at all (heavy): ${hits.inspection_ranking.heavy} of 50. Tests later burning, not landslides.`;
 
   const ev = $("#evidence");
   ev.replaceChildren();
   const add = (strong, rest) => { const li = h("li", {}, ev); h("strong", {}, li, strong); li.append(` ${rest}`); };
-  add(`${ch.ours.annual_median_abs_err_pct}% median yearly error, ${ch.ours.annual_total_bias_pct > 0 ? "+" : ""}${ch.ours.annual_total_bias_pct}% overall bias`,
-    `on ${ch.test.join(", ")} (fit on ${ch.train[0]}–${ch.train[ch.train.length - 1]} only), a chronological holdout with documented outage days removed. A monthly climatology without satellite data gets ${s.baselines.climatology}%; one ratio on the same cell-days ${s.baselines.global_celldays}%; region-only ${s.baselines.region_only}%.`);
+  add(`${ch.ours.annual_median_abs_err_pct}% median annual error across regions, ${ch.ours.annual_total_bias_pct > 0 ? "+" : ""}${ch.ours.annual_total_bias_pct}% overall bias`,
+    `on ${ch.test.join(", ")} (fit on ${ch.train[0]}–${ch.train[ch.train.length - 1]} only), a chronological holdout with documented outage days removed. A monthly climatology without satellite data gets ${s.baselines.climatology}%; one ratio on the same cell-days ${s.baselines.global_celldays}%; region-only ${s.baselines.region_only}%. For the Bangladesh-wide total alone a single ratio does slightly better (${s.baselines_national.global_raw}% vs ${ch.ours.national_annual_median_abs_err_pct}%); the regional factors are what get the hills/plains split right.`);
   add("Aqua's orbit drift measured from the data itself:", `its afternoon pass moved from about 13:15 to ${formatHour(s.aqua_drift.overpass_h[String(Math.max(...s.aqua_drift.drift_years))].Aqua)} by ${Math.max(...s.aqua_drift.drift_years)}; drifted years (${s.aqua_drift.drift_years.join(", ")}) are left out of calibration.`);
-  add("Documented Aqua outage", `(safe mode, ${s.aqua_outages.map(o => `${o.start} to ${o.end}`).join("; ")}) removed from both sensors; a fire-count check against Terra finds no other gap. This exclusion was added after a first look at the holdout.`);
+  add("Documented Aqua outage", `(safe mode, ${s.aqua_outages.map(o => `${o.start} to ${o.end}`).join("; ")}) removed from both sensors; a fire-count check against Terra flagged no additional months. This exclusion was added after a first look at the holdout.`);
   add(`Place level: ${pct(s.cell_calibration_holdout.overall_share_modis, 1)} vs ${pct(s.cell_calibration_holdout.overall_share_harmonized, 1)}`,
     `of hill squares active per season (MODIS vs calibrated VIIRS) on unseen seasons ${s.cell_calibration_holdout.years.join(", ")}; per-square agreement is moderate (rank correlation ${s.cell_calibration_holdout.cells_active_seasons_spearman}).`);
   add("Forecast comparison, rolling origin:", `every model and calibration refitted each season on earlier seasons only. "How often it burned before" performed best in this comparison (${Math.round(chosen_p50(s) * 50)} of 50 vs ${Math.round(s.forecast.comparison.gbm.precision_at_50 * 50)} for the ML model).`);

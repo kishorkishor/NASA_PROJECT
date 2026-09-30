@@ -103,6 +103,9 @@ def summary():
             "climatology": "monthly climatology (training-years mean, no satellite data)",
             "global_celldays": "one global ratio on 1 km cell-days",
             "region_only": "region-only ratio on 1 km cell-days"}.items()},
+        "baselines_national": {k: v["chronological_holdout"]["results"][name]["national_annual_median_abs_err_pct"]
+                               for k, name in {"global_raw": "one global ratio on raw counts",
+                                               "global_celldays": "one global ratio on 1 km cell-days"}.items()},
         "cells_that_look_worse_after_2012": hist["cells_that_look_worse_after_2012"],
         "cell_calibration_holdout": {k: hist["holdout_check_with_train_curve"][k]
                                      for k in ["years", "brier_skill", "overall_share_modis", "overall_share_harmonized",

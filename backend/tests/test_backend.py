@@ -221,6 +221,8 @@ class TestAPI:
         j = s["jump"]
         assert j["naive_stitched"] > 2 and j["harmonized_95ci"][0] <= j["harmonized"] <= j["harmonized_95ci"][1]
         assert s["chronological_holdout"]["ours"]["annual_median_abs_err_pct"] < 20
+        assert s["chronological_holdout"]["ours"]["national_annual_median_abs_err_pct"] < 20
+        assert "slope_people_only" in s["watchlist"]["forecast_inspection_backtest"]["mean_hits_in_top_50"]
         assert s["forecast"]["chosen"] in model.SIMPLICITY_ORDER
 
     def test_calendar_shapes_and_intervals(self):

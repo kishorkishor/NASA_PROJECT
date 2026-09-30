@@ -189,6 +189,7 @@
       ],
       "results": {
         "naive (raw VIIRS counts, no fix)": {
+          "national_annual_median_abs_err_pct": 371.9,
           "monthly_MAE": 313.4,
           "monthly_R2": -9.212,
           "annual_total_bias_pct": 372.7,
@@ -221,6 +222,7 @@
           }
         },
         "monthly climatology (training-years mean, no satellite data)": {
+          "national_annual_median_abs_err_pct": 20.0,
           "monthly_MAE": 39.0,
           "monthly_R2": 0.722,
           "annual_total_bias_pct": 0.0,
@@ -253,6 +255,7 @@
           }
         },
         "one global ratio on raw counts": {
+          "national_annual_median_abs_err_pct": 8.0,
           "monthly_MAE": 27.9,
           "monthly_R2": 0.924,
           "annual_total_bias_pct": 0.1,
@@ -285,6 +288,7 @@
           }
         },
         "one global ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 9.0,
           "monthly_MAE": 37.7,
           "monthly_R2": 0.87,
           "annual_total_bias_pct": 0.1,
@@ -317,6 +321,7 @@
           }
         },
         "season-only ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 8.9,
           "monthly_MAE": 28.0,
           "monthly_R2": 0.905,
           "annual_total_bias_pct": 0.2,
@@ -349,6 +354,7 @@
           }
         },
         "region-only ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 7.9,
           "monthly_MAE": 19.5,
           "monthly_R2": 0.927,
           "annual_total_bias_pct": 0.2,
@@ -381,6 +387,7 @@
           }
         },
         "region x season ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 8.6,
           "monthly_MAE": 18.3,
           "monthly_R2": 0.927,
           "annual_total_bias_pct": 0.2,
@@ -433,6 +440,7 @@
       ],
       "results": {
         "naive (raw VIIRS counts, no fix)": {
+          "national_annual_median_abs_err_pct": 371.9,
           "monthly_MAE": 293.4,
           "monthly_R2": -9.036,
           "annual_total_bias_pct": 371.2,
@@ -466,6 +474,7 @@
           "test_period_total_pred_vs_modis_pct": 371.2
         },
         "monthly climatology (training-years mean, no satellite data)": {
+          "national_annual_median_abs_err_pct": 11.4,
           "monthly_MAE": 50.8,
           "monthly_R2": 0.572,
           "annual_total_bias_pct": 9.6,
@@ -499,6 +508,7 @@
           "test_period_total_pred_vs_modis_pct": 9.6
         },
         "one global ratio on raw counts": {
+          "national_annual_median_abs_err_pct": 3.7,
           "monthly_MAE": 23.3,
           "monthly_R2": 0.962,
           "annual_total_bias_pct": -0.5,
@@ -532,6 +542,7 @@
           "test_period_total_pred_vs_modis_pct": -0.5
         },
         "one global ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 5.1,
           "monthly_MAE": 33.7,
           "monthly_R2": 0.913,
           "annual_total_bias_pct": -2.0,
@@ -565,6 +576,7 @@
           "test_period_total_pred_vs_modis_pct": -2.0
         },
         "season-only ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 4.4,
           "monthly_MAE": 24.5,
           "monthly_R2": 0.955,
           "annual_total_bias_pct": 0.3,
@@ -598,6 +610,7 @@
           "test_period_total_pred_vs_modis_pct": 0.3
         },
         "region-only ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 6.3,
           "monthly_MAE": 14.5,
           "monthly_R2": 0.983,
           "annual_total_bias_pct": 1.2,
@@ -631,6 +644,7 @@
           "test_period_total_pred_vs_modis_pct": 1.2
         },
         "region x season ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 6.2,
           "monthly_MAE": 13.4,
           "monthly_R2": 0.985,
           "annual_total_bias_pct": 0.9,
@@ -674,6 +688,7 @@
       ],
       "results": {
         "naive (raw VIIRS counts, no fix)": {
+          "national_annual_median_abs_err_pct": 352.8,
           "monthly_MAE": 317.2,
           "monthly_R2": -9.332,
           "annual_total_bias_pct": 360.6,
@@ -707,6 +722,7 @@
           "test_period_total_pred_vs_modis_pct": 360.6
         },
         "monthly climatology (training-years mean, no satellite data)": {
+          "national_annual_median_abs_err_pct": 20.9,
           "monthly_MAE": 38.6,
           "monthly_R2": 0.759,
           "annual_total_bias_pct": 13.3,
@@ -740,6 +756,7 @@
           "test_period_total_pred_vs_modis_pct": 13.3
         },
         "one global ratio on raw counts": {
+          "national_annual_median_abs_err_pct": 10.6,
           "monthly_MAE": 25.9,
           "monthly_R2": 0.946,
           "annual_total_bias_pct": -2.6,
@@ -773,6 +790,7 @@
           "test_period_total_pred_vs_modis_pct": -2.6
         },
         "one global ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 5.8,
           "monthly_MAE": 34.1,
           "monthly_R2": 0.901,
           "annual_total_bias_pct": -5.3,
@@ -806,6 +824,7 @@
           "test_period_total_pred_vs_modis_pct": -5.3
         },
         "season-only ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 10.2,
           "monthly_MAE": 26.8,
           "monthly_R2": 0.939,
           "annual_total_bias_pct": -1.9,
@@ -839,6 +858,7 @@
           "test_period_total_pred_vs_modis_pct": -1.9
         },
         "region-only ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 9.5,
           "monthly_MAE": 16.4,
           "monthly_R2": 0.965,
           "annual_total_bias_pct": -1.4,
@@ -872,6 +892,7 @@
           "test_period_total_pred_vs_modis_pct": -1.4
         },
         "region x season ratio on 1 km cell-days": {
+          "national_annual_median_abs_err_pct": 9.8,
           "monthly_MAE": 15.0,
           "monthly_R2": 0.967,
           "annual_total_bias_pct": -1.3,

@@ -242,7 +242,7 @@
     ]
   },
   "forecast_inspection_backtest": {
-    "definition": "top 50 of each ranking, rebuilt from earlier seasons only, vs what burned in season t; steep = median season-t fire slope >= 15 deg; people = >= 200 within ~1.5 km of the season-t fires. Tests finding later burning on steep, populated ground, not landslide usefulness.",
+    "definition": "top 50 of each ranking, rebuilt from earlier seasons only, vs what burned in season t (ties at the cut-off split evenly); slope_people_only ranks earlier fire locations by slope x people without the fire-history term; steep = median season-t fire slope >= 15 deg; people = >= 200 within ~1.5 km of the season-t fires. Tests finding later burning on steep, populated ground, not landslide usefulness.",
     "per_year": {
       "2022": {
         "base_rate": {
@@ -251,14 +251,19 @@
           "steep_people": 0.014
         },
         "inspection_ranking": {
-          "heavy": 10,
-          "steep": 10,
-          "steep_people": 9
+          "heavy": 10.0,
+          "steep": 10.0,
+          "steep_people": 9.0
         },
         "burn_forecast_only": {
-          "heavy": 21,
-          "steep": 8,
-          "steep_people": 5
+          "heavy": 21.1,
+          "steep": 8.7,
+          "steep_people": 5.0
+        },
+        "slope_people_only": {
+          "heavy": 5.0,
+          "steep": 5.0,
+          "steep_people": 5.0
         }
       },
       "2023": {
@@ -268,14 +273,19 @@
           "steep_people": 0.0407
         },
         "inspection_ranking": {
-          "heavy": 31,
-          "steep": 29,
-          "steep_people": 24
+          "heavy": 31.0,
+          "steep": 29.0,
+          "steep_people": 24.0
         },
         "burn_forecast_only": {
-          "heavy": 32,
-          "steep": 9,
-          "steep_people": 5
+          "heavy": 32.0,
+          "steep": 9.0,
+          "steep_people": 5.0
+        },
+        "slope_people_only": {
+          "heavy": 15.0,
+          "steep": 15.0,
+          "steep_people": 15.0
         }
       },
       "2024": {
@@ -285,14 +295,19 @@
           "steep_people": 0.0191
         },
         "inspection_ranking": {
-          "heavy": 17,
-          "steep": 15,
-          "steep_people": 13
+          "heavy": 17.0,
+          "steep": 15.0,
+          "steep_people": 13.0
         },
         "burn_forecast_only": {
-          "heavy": 24,
-          "steep": 6,
-          "steep_people": 3
+          "heavy": 24.7,
+          "steep": 6.0,
+          "steep_people": 3.0
+        },
+        "slope_people_only": {
+          "heavy": 10.0,
+          "steep": 10.0,
+          "steep_people": 10.0
         }
       },
       "2025": {
@@ -302,14 +317,19 @@
           "steep_people": 0.0216
         },
         "inspection_ranking": {
-          "heavy": 16,
-          "steep": 15,
-          "steep_people": 13
+          "heavy": 16.0,
+          "steep": 15.0,
+          "steep_people": 13.0
         },
         "burn_forecast_only": {
-          "heavy": 30,
-          "steep": 8,
-          "steep_people": 4
+          "heavy": 30.0,
+          "steep": 8.0,
+          "steep_people": 4.0
+        },
+        "slope_people_only": {
+          "heavy": 7.0,
+          "steep": 7.0,
+          "steep_people": 6.0
         }
       },
       "2026": {
@@ -319,14 +339,19 @@
           "steep_people": 0.0257
         },
         "inspection_ranking": {
-          "heavy": 19,
-          "steep": 17,
-          "steep_people": 15
+          "heavy": 19.0,
+          "steep": 17.0,
+          "steep_people": 15.0
         },
         "burn_forecast_only": {
-          "heavy": 24,
-          "steep": 9,
-          "steep_people": 5
+          "heavy": 24.0,
+          "steep": 9.0,
+          "steep_people": 5.0
+        },
+        "slope_people_only": {
+          "heavy": 9.0,
+          "steep": 8.0,
+          "steep_people": 8.0
         }
       }
     },
@@ -337,9 +362,14 @@
         "steep_people": 14.8
       },
       "burn_forecast_only": {
-        "heavy": 26.2,
-        "steep": 8.0,
+        "heavy": 26.4,
+        "steep": 8.1,
         "steep_people": 4.4
+      },
+      "slope_people_only": {
+        "heavy": 9.2,
+        "steep": 9.0,
+        "steep_people": 8.8
       }
     },
     "mean_expected_by_chance_in_top_50": {
@@ -359,10 +389,10 @@
     "populated_by_both": 729,
     "top50_every_cell_median_fire_slope_ge_15": true,
     "top50_fire_slope_median_deg": 20.8,
-    "top50_median_people_within_1.5km": 383,
     "top50_mean_steep_share_of_fire_footprints_range": [
       0.47,
       0.93
-    ]
+    ],
+    "top50_median_people_within_1.5km": 383
   }
 }
