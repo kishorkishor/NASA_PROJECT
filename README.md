@@ -5,6 +5,14 @@ Chittagong hill districts.
 
 **NASA Space Apps Challenge 2026** · Challenge: *Harmonization of MODIS and VIIRS Hot Spots* · Team feb, Dhaka
 
+## Interactive explainer
+
+A one-page visual walk-through of the problem and the fix: two sensors, the false jump, the harmonized
+record, and the 16 places to check. It is a single self-contained file, [showcase/index.html](showcase/index.html),
+and needs no server. The repository deploys it on Netlify as is (`netlify.toml` publishes the `showcase` folder).
+
+![Interactive explainer](docs/images/showcase-two-eyes.png)
+
 ## The problem
 
 NASA has two long fire records. MODIS (since 2000) sees the ground in 1 km pixels. VIIRS (since 2012)
