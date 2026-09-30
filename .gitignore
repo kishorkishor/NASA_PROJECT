@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Secrets (FIRMS map key)
+.env
+
+# Local editor and tool folders
+.vscode/
+.idea/
+/.*/
+!/.github/
+
+# Rebuilt by the pipeline (large or re-downloadable)
+data/ref/terrarium/
+data/processed/slope_raster.npz
+data/processed/burn_model.joblib
+
+# Blind-review key: raters must not see it
+data/processed/s2_blind_key.csv
+
+# Local output
+*.log
+tools/screenshots/
