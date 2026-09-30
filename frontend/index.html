@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Burn Before the Rain</title>
+  <meta name="description" content="Harmonized MODIS + VIIRS burning calendar for Bangladesh and a pre-monsoon inspection list for the Chittagong hill districts.">
+  <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0b'/%3E%3Cpath d='M4 25 12 11l5 8 4-5 7 11z' fill='%23d03b3b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div>
+          <p class="kicker">NASA Space Apps 2026 · Harmonization of MODIS and VIIRS Hot Spots</p>
+          <h1>Burn Before the Rain</h1>
+        </div>
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Colour theme: system">Theme: auto</button>
+      </div>
+      <p class="lede">Every spring the Chittagong hills burn; every monsoon the hills slide. We fixed a satellite
+        record that says burning tripled (it didn't), then listed the steep, populated places where fire was detected,
+        each with its corrected 24-season history, so they can be checked before the rain.</p>
+      <p class="meta" id="meta">Fire data: NASA FIRMS (MODIS Aqua, VIIRS S-NPP), 2003 to 30 June 2026.</p>
+    </div>
+  </header>
+
+  <nav class="stepbar" aria-label="Story steps">
+    <ol>
+      <li><a href="#step-1" data-step="1"><span class="num">1</span>The false alarm</a></li>
+      <li><a href="#step-2" data-step="2"><span class="num">2</span>The corrected record</a></li>
+      <li><a href="#step-3" data-step="3"><span class="num">3</span>Inspect a place</a></li>
+      <li><a href="#method" data-step="4"><span class="num">?</span>How we checked</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- STEP 1 -->
+    <section class="step" id="step-1" aria-labelledby="h-step-1">
+      <div class="wrap">
+        <div class="step-head"><span class="num" aria-hidden="true">1</span><h2 id="h-step-1">The false alarm</h2></div>
+        <p class="lede">NASA's old fire satellite (MODIS, 1 km pixels) was joined in 2012 by a sharper one (VIIRS, 375 m).
+          VIIRS sees one fire as several dots and catches small fires MODIS misses. Join the two archives as they are and
+          Bangladesh seems to burn far more after 2012.</p>
+        <div class="card">
+          <div class="figure-row">
+            <div class="hero-figure">
+              <div class="value" id="jump-naive">…</div>
+              <div class="label">apparent rise in yearly fire detections after 2012 when the two archives are simply joined</div>
+            </div>
+            <div>
+              <h3>Fire detections per year, old and new satellite joined as-is</h3>
+              <p class="sub">All of Bangladesh, vegetation fires. Complete years only.</p>
+              <div class="chart" id="chart-naive" role="group" aria-label="Chart: naive joined fire detections per year">
+                <div class="state loading">Loading chart…</div>
+              </div>
+            </div>
+          </div>
+          <details class="table-view"><summary>Show as table</summary><div class="table-scroll" id="table-naive"></div></details>
+        </div>
+        <p class="next"><a class="icon-btn next-link" href="#step-2">Next: the corrected record →</a></p>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step" id="step-2" aria-labelledby="h-step-2">
+      <div class="wrap">
+        <div class="step-head"><span class="num" aria-hidden="true">2</span><h2 id="h-step-2">The corrected record</h2></div>
+        <p class="lede">We shrink VIIRS to MODIS-sized ~1 km footprints, then learn how many VIIRS fire-days equal one MODIS
+          detection in each region and season, using only the years when both satellites flew and MODIS was reliable.
+          The jump disappears: under this calibration, detected fire activity in Bangladesh has gone <em>down</em>.</p>
+
+        <div class="tiles" id="tiles-2">
+          <div class="tile"><div class="t-label">Median yearly error on years the calibration never saw (2020–23)</div><div class="t-value" id="t-err">…</div><div class="t-note" id="t-err-note"></div></div>
+          <div class="tile"><div class="t-label">After-2012 vs before, corrected</div><div class="t-value" id="t-jump">…</div><div class="t-note" id="t-jump-note"></div></div>
+          <div class="tile"><div class="t-label">Hill areas with an apparent increase since 2012</div><div class="t-value" id="t-worse">…</div><div class="t-note">naive join → calibrated record (apparent increases, not proven false)</div></div>
+          <div class="tile"><div class="t-label">Burning trend in the hills, Feb to May</div><div class="t-value" id="t-trend">…</div><div class="t-note" id="t-trend-note"></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h3>Burning activity per year, in MODIS-equivalent detections</h3>
+              <p class="sub">The corrected line keeps going after MODIS: from 2012 it is VIIRS, converted.</p>
+            </div>
+            <div class="seg" role="group" aria-label="Region">
+              <button type="button" data-region="hills" aria-pressed="true">Hill districts</button>
+              <button type="button" data-region="all" aria-pressed="false">All Bangladesh</button>
+            </div>
+          </div>
+          <ul class="legend" id="legend-2">
+            <li><span class="key-line k-s1"></span>Corrected (harmonized)</li>
+            <li><span class="band"></span>95% calibration-factor uncertainty</li>
+            <li><span class="key-line k-s3"></span>MODIS alone (reference)</li>
+            <li><span class="swatch k-shade"></span>MODIS orbit drifted: reference unreliable</li>
+          </ul>
+          <div class="chart mt-3" id="chart-fixed" role="group" aria-label="Chart: corrected burning activity per year">
+            <div class="state loading">Loading chart…</div>
+          </div>
+          <details class="table-view"><summary>Show as table</summary><div class="table-scroll" id="table-fixed"></div></details>
+        </div>
+
+        <div class="card">
+          <h3>Burning Activity Calendar: hill districts</h3>
+          <p class="sub">Corrected detections per month, 2003–2026. Nearly all burning happens February to May, right before the monsoon.</p>
+          <div class="chart mt-3" id="calendar" role="group" aria-label="Heatmap: corrected burning activity by month and year">
+            <div class="state loading">Loading calendar…</div>
+          </div>
+          <div class="cal-legend" id="cal-legend"></div>
+          <details class="table-view"><summary>Show as table</summary><div class="table-scroll" id="table-cal"></div></details>
+        </div>
+        <p class="next"><a class="icon-btn next-link" href="#step-3">Next: inspect a place →</a></p>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step" id="step-3" aria-labelledby="h-step-3">
+      <div class="wrap">
+        <div class="step-head"><span class="num" aria-hidden="true">3</span><h2 id="h-step-3">Inspect a place</h2></div>
+        <p class="lede">Each square is about 2 km. We score where fire was detected <em>on steep ground with people
+          nearby</em>, measured at the fire points themselves, then mark as "inspect first" only places that stay in the top 50
+          in at least 80% of 54 settings of our own scoring grid. It is a list of places to check before June, not a
+          landslide forecast.</p>
+
+        <div class="tiles" id="tiles-3">
+          <div class="tile"><div class="t-label">Places to inspect first</div><div class="t-value" id="t-first">…</div><div class="t-note" id="t-first-note"></div></div>
+          <div class="tile"><div class="t-label">Sentinel-2 burn-scar test (dNBR) of the top places</div><div class="t-value" id="t-s2">…</div><div class="t-note" id="t-s2-note"></div></div>
+          <div class="tile"><div class="t-label">Forecast inspection list, backtest 2022–26: top 50 that later burned heavily on steep ground</div><div class="t-value" id="t-fc">…</div><div class="t-note" id="t-fc-note"></div></div>
+        </div>
+
+        <div class="grid-2 mt-4">
+          <div class="card map-card">
+            <div class="map-top">
+              <div class="seg" role="group" aria-label="Season">
+                <button type="button" data-kind="observed" aria-pressed="true">2026 season (seen)</button>
+                <button type="button" data-kind="forecast" aria-pressed="false">2027 (forecast)</button>
+              </div>
+              <span class="sub" id="map-count" aria-live="polite"></span>
+            </div>
+            <div id="map" role="region" aria-label="Map of the Chittagong hill districts. Use the list below the map to select places with the keyboard."></div>
+            <div class="map-legend" id="map-legend">
+              <span><i class="prio-icon p-first" aria-hidden="true">◆</i>Inspect first</span>
+              <span><i class="prio-icon p-inspect" aria-hidden="true">▲</i>Inspect</span>
+              <span><i class="prio-icon p-monitor" aria-hidden="true">●</i>Monitor (fire detected)</span>
+            </div>
+          </div>
+
+          <aside class="card inspector" id="inspector" aria-live="polite" aria-labelledby="insp-title">
+            <div class="state">Pick a place on the map or in the list.</div>
+          </aside>
+        </div>
+
+        <div class="card places">
+          <div class="card-head">
+            <div>
+              <h3 id="places-title">Top places</h3>
+              <p class="sub">Ranked by score. Press Enter on a row to open it.</p>
+            </div>
+          </div>
+          <div class="table-scroll" id="places"><div class="state loading">Loading places…</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METHOD -->
+    <section class="step method" id="method" aria-labelledby="h-method">
+      <div class="wrap">
+        <div class="step-head"><span class="num" aria-hidden="true">?</span><h2 id="h-method">How we checked it</h2></div>
+        <div class="cols mt-5">
+          <div class="card"><h3>Evidence</h3><ul id="evidence" class="mt-3"><li>Loading…</li></ul></div>
+          <div class="card"><h3>Limits we know about</h3>
+            <ul class="mt-3">
+              <li><strong>Fire detected is not a bare slope.</strong> Satellites record heat, not burned area. Our Sentinel-2 test is spectral evidence consistent with burning for a sample of 60 places. It is not a visual check; a blind visual check is prepared but not yet done.</li>
+              <li><strong>No landslide records were checked.</strong> Burned steep slopes are a warning sign, not a proven cause. Many deaths happen where hills are cut for houses, which fire satellites cannot see.</li>
+              <li><strong>MODIS is a reference, not the truth.</strong> It also drifted in orbit from 2024 and had an outage in April 2022; both are excluded from calibration.</li>
+              <li><strong>The weights are ours.</strong> The ranking changes with thresholds. "Inspect first" means stable within our own grid of settings, not a probability of being right.</li>
+              <li><strong>Jhum is a traditional livelihood.</strong> This list is for support and safety checks with communities, not for blame.</li>
+              <li>Not yet reviewed by people who work in the hill districts.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="sub mt-4">All numbers come from the pipeline's reports: <a href="/api/validation">/api/validation</a> (JSON) · <a href="/docs">API docs</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Data: NASA FIRMS MODIS (MCD14ML) &amp; VIIRS S-NPP 375 m (VNP14IMGTML) active fire, science-quality; Copernicus Sentinel-2 L2A via Earth Search (Element 84);
+        WorldPop 2020 population; geoBoundaries; OpenStreetMap place names; AWS Terrain Tiles (SRTM). Base map © OpenStreetMap contributors.</p>
+      <p>Built for NASA Space Apps Challenge 2026, Dhaka.</p>
+    </div>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="status" aria-live="off"></div>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
