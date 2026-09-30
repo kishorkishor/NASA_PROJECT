@@ -58,7 +58,7 @@ Two problems had to be removed first:
 - season-only and region-only ratios on cell-days
 
 All are tested in a chronological holdout (fit 2012–2019, test 2020–2023) and in leave-one-year-out. As
-well as monthly R² and yearly error, we report the correlation of yearly totals with MODIS. Seasonality
+well as monthly R² and annual error (per region and Bangladesh-wide), we report the correlation of yearly totals with MODIS. Seasonality
 alone can give a high monthly R² with no skill at telling years apart.
 
 **Uncertainty.** We resample the calibration years with replacement 2,000 times (whole years, because

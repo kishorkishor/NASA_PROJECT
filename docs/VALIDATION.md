@@ -19,15 +19,27 @@ documented safe-mode days (31 March – 17 April 2022) from both sensors before 
 added that exclusion after we had looked at a first holdout run, so this is a chronological holdout with a
 documented outage exclusion. The fit itself never used the test years.
 
-| Method (converting VIIRS to MODIS terms) | Monthly R² | Median yearly error | Overall bias |
-|---|---|---|---|
-| Naive join (raw VIIRS counts) | −9.04 | 609% | +371% |
-| Monthly climatology (training-years mean, no satellite data) | 0.57 | 21.9% | +9.6% |
-| One ratio on raw counts | 0.96 | 65.8% | −0.5% |
-| One ratio on ~1 km cell-days | 0.91 | 93.3% | −2.0% |
-| Season-only ratio on cell-days | 0.96 | 40.5% | +0.3% |
-| Region-only ratio on cell-days | 0.98 | 7.6% | +1.2% |
-| **Region × season ratio on cell-days (used)** | **0.99** | **8.0%** | **+0.9%** |
+Two annual errors are reported, because they answer different questions. The regional error scores
+hills and plains separately (the median over the eight year × region totals of the four test years).
+The Bangladesh-wide error adds the two regions first (the median over four national yearly totals).
+
+| Method (converting VIIRS to MODIS terms) | Monthly R² | Median annual error across regions | Median Bangladesh-wide annual error | Overall bias |
+|---|---|---|---|---|
+| Naive join (raw VIIRS counts) | −9.04 | 609% | 372% | +371% |
+| Monthly climatology (training-years mean, no satellite data) | 0.57 | 21.9% | 11.4% | +9.6% |
+| One ratio on raw counts | 0.96 | 65.8% | **3.7%** | −0.5% |
+| One ratio on ~1 km cell-days | 0.91 | 93.3% | 5.1% | −2.0% |
+| Season-only ratio on cell-days | 0.96 | 40.5% | 4.4% | +0.3% |
+| Region-only ratio on cell-days | 0.98 | **7.6%** | 6.3% | +1.2% |
+| **Region × season ratio on cell-days (used)** | **0.99** | 8.0% | 6.2% | +0.9% |
+
+**The trade-off.** For the national yearly total alone, one global ratio is enough, and in this holdout
+it is slightly better than our method (3.7% against 6.2%, over four test years). What the regional
+factors add is the split between hills and plains: a global ratio gets the national total right by
+overestimating one region and underestimating the other (66–93% regional error), and our method brings
+that down to 8.0%. The hill-district record is what the rest of this project uses, so we calibrate by
+region. In leave-one-year-out over 2012–2023 the national errors are close to each other (8.0% for one
+ratio on raw counts, 8.6% for ours).
 
 Per group for the method we use: median yearly error, bias, and the correlation of yearly totals with MODIS.
 
@@ -50,7 +62,8 @@ How to read this:
   leave-one-year-out over 2012–2023); a constant conversion factor does not change that correlation.
 - **Small groups are unreliable.** Accuracy is much weaker in groups with only a few dozen detections a
   year.
-- **Leave-one-year-out (2012–2023)** gives R² 0.93, 10.6% median yearly error and +0.2% bias. Hills in
+- **Leave-one-year-out (2012–2023)** gives R² 0.93, 10.6% median annual error across regions (8.6%
+  Bangladesh-wide) and +0.2% bias. Hills in
   the burn season: 9.7%. The climatology's yearly r of −1.0 in this test is an artefact of leaving one
   year out, not real skill.
 
@@ -101,8 +114,9 @@ calibration. The independent evidence is the holdout above.
   (2024), 14.20 h (2025) and 14.92 h (2026). VIIRS S-NPP stayed at 13.13–13.28 h. Years more than
   0.15 h from Aqua's 2012–2021 median are excluded from calibration (2024–2026).
 - **Outage.** Aqua was in safe mode from 31 March to 17 April 2022 (MODIS Characterization Support Team
-  event record). An independent check found no other gaps: we compared fire-days per month with MODIS
-  Terra, and that check only flags April 2022, which the documented outage covers. Other documented
+  event record). We also compared fire-days per month with MODIS Terra. No additional months were flagged
+  by this check: it only flags April 2022, which the documented outage covers. The check is a simple
+  rule and cannot rule out shorter or partial gaps. Other documented
   interruptions can be added to `backend/config.py`.
 
 ## 2. The harmonized history of each hill cell
@@ -163,14 +177,21 @@ were), then checked its top 50 against what burned that season.
 
 Average number of the top 50 per season:
 
-| Outcome in season t | Inspection ranking | Burn forecast alone | Expected by chance |
-|---|---|---|---|
-| Heavy burning (≥ 3 fire days) | 18.6 | 26.2 | 4.8 |
-| Heavy burning with fires on steep ground (median slope ≥ 15°) | 17.2 | 8.0 | 1.8 |
-| …and ≥ 200 people within ~1.5 km of those fires | 14.8 | 4.4 | 1.2 |
+| Outcome in season t | Inspection ranking | Slope × people alone | Burn forecast alone | Expected by chance |
+|---|---|---|---|---|
+| Heavy burning (≥ 3 fire days) | 18.6 | 9.2 | 26.4 | 4.8 |
+| Heavy burning with fires on steep ground (median slope ≥ 15°) | 17.2 | 9.0 | 8.1 | 1.8 |
+| …and ≥ 200 people within ~1.5 km of those fires | 14.8 | 8.8 | 4.4 | 1.2 |
+
+"Slope × people alone" is the stronger comparator: the same slope and population terms at places where
+fire was detected in earlier seasons, with the fire-history term left out. Chance is a random draw from
+the whole grid and is easy to beat. Ties at the top-50 cut-off are split evenly, as in section 3.
 
 - **The inspection ranking gives up some burning hits** to find far more burning on steep, populated
   ground.
+- **What the fire history adds.** Against slope × people alone, the full ranking finds 14.8 instead of
+  8.8 of 50, and it is ahead in each of the five seasons (9–24 against 5–15). Five seasons are an
+  indication, not a tested difference.
 - **What this does and does not test.** It tests whether the list locates later burning on steep,
   populated terrain. Whether that terrain goes on to slide is not tested.
 - **The outcome is partly built into the ranking.** The outcome definitions use the same kind of terrain
