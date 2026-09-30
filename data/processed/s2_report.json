@@ -1,0 +1,99 @@
+{
+  "method": "Sentinel-2 L2A (Earth Search), per-pixel median of up to 3 clearest scenes before / after each shared 2026 windows; dNBR = NBR_pre - NBR_post with B8A/B12 at 40 m (COG overview); SCL cloud/shadow mask; scar = dNBR >= 0.27; 'scar visible' if >= 5% of clear pixels",
+  "sample": {
+    "per_group": 20,
+    "seed": 0,
+    "districts": [
+      "Rangamati",
+      "Bandarban",
+      "Khagrachhari"
+    ],
+    "pre_window": [
+      "2025-12-01",
+      "2026-01-31"
+    ],
+    "post_window": [
+      "2026-05-01",
+      "2026-06-10"
+    ]
+  },
+  "interpretation": "Spectral evidence consistent with burning (dNBR), not an independent interpretation. Controls have no VIIRS detection, which does not prove no fire. Steep-share is descriptive.",
+  "groups": {
+    "control": {
+      "cells": 20,
+      "with_clear_imagery": 20,
+      "scar_visible": 2,
+      "scar_share_median": 0.014,
+      "dnbr_median_of_medians": 0.066,
+      "scar_on_steep_share_median": 0.528,
+      "common_clear_share_median": 1.0,
+      "common_clear_share_min": 0.675,
+      "visible_by_threshold": {
+        "dNBR>=0.10, cell>=3%": 19,
+        "dNBR>=0.10, cell>=5%": 18,
+        "dNBR>=0.10, cell>=10%": 14,
+        "dNBR>=0.20, cell>=3%": 12,
+        "dNBR>=0.20, cell>=5%": 8,
+        "dNBR>=0.20, cell>=10%": 3,
+        "dNBR>=0.27, cell>=3%": 6,
+        "dNBR>=0.27, cell>=5%": 2,
+        "dNBR>=0.27, cell>=10%": 0,
+        "dNBR>=0.44, cell>=3%": 1,
+        "dNBR>=0.44, cell>=5%": 0,
+        "dNBR>=0.44, cell>=10%": 0
+      }
+    },
+    "fire": {
+      "cells": 20,
+      "with_clear_imagery": 20,
+      "scar_visible": 10,
+      "scar_share_median": 0.046,
+      "dnbr_median_of_medians": 0.043,
+      "scar_on_steep_share_median": 0.462,
+      "common_clear_share_median": 1.0,
+      "common_clear_share_min": 0.795,
+      "visible_by_threshold": {
+        "dNBR>=0.10, cell>=3%": 20,
+        "dNBR>=0.10, cell>=5%": 20,
+        "dNBR>=0.10, cell>=10%": 18,
+        "dNBR>=0.20, cell>=3%": 17,
+        "dNBR>=0.20, cell>=5%": 14,
+        "dNBR>=0.20, cell>=10%": 10,
+        "dNBR>=0.27, cell>=3%": 13,
+        "dNBR>=0.27, cell>=5%": 10,
+        "dNBR>=0.27, cell>=10%": 6,
+        "dNBR>=0.44, cell>=3%": 6,
+        "dNBR>=0.44, cell>=5%": 3,
+        "dNBR>=0.44, cell>=10%": 1
+      }
+    },
+    "priority": {
+      "cells": 20,
+      "with_clear_imagery": 20,
+      "scar_visible": 15,
+      "scar_share_median": 0.06,
+      "dnbr_median_of_medians": 0.028,
+      "scar_on_steep_share_median": 0.803,
+      "common_clear_share_median": 0.977,
+      "common_clear_share_min": 0.612,
+      "visible_by_threshold": {
+        "dNBR>=0.10, cell>=3%": 20,
+        "dNBR>=0.10, cell>=5%": 20,
+        "dNBR>=0.10, cell>=10%": 19,
+        "dNBR>=0.20, cell>=3%": 19,
+        "dNBR>=0.20, cell>=5%": 19,
+        "dNBR>=0.20, cell>=10%": 12,
+        "dNBR>=0.27, cell>=3%": 19,
+        "dNBR>=0.27, cell>=5%": 15,
+        "dNBR>=0.27, cell>=10%": 4,
+        "dNBR>=0.44, cell>=3%": 6,
+        "dNBR>=0.44, cell>=5%": 1,
+        "dNBR>=0.44, cell>=10%": 0
+      }
+    }
+  },
+  "mann_whitney_scar_share_priority_gt_control_p": 1.01e-05,
+  "mann_whitney_scar_share_fire_gt_control_p": 0.00197,
+  "mann_whitney_scar_share_priority_gt_fire_p": 0.182,
+  "sample_matches_current_top_list": true
+}

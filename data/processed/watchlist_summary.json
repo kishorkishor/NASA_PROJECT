@@ -1,0 +1,368 @@
+{
+  "framing": "inspection priority (steep, populated places with detected fire activity) - not validated landslide risk",
+  "forecast_method": "viirs_history",
+  "top_n": 50,
+  "robust_share": 0.8,
+  "default_parameters": {
+    "heavy_days": 3,
+    "forecast_q": 0.95,
+    "slope_full": 25.0,
+    "people_full": 5000,
+    "pop_radius": 1
+  },
+  "observed": {
+    "season": 2026,
+    "counts": {
+      "none": 2651,
+      "monitor": 1561,
+      "inspect": 123,
+      "inspect first": 16
+    },
+    "inspect_first_by_district": {
+      "Bandarban": 14,
+      "Rangamati": 2
+    },
+    "people_living_in_inspect_first_cells": 5931,
+    "inspect_first_by_long_term_pattern": {
+      "chronic": 8,
+      "recurring": 8
+    },
+    "robustness": {
+      "variants": 54,
+      "parameters": {
+        "heavy_days": [
+          2,
+          3,
+          4
+        ],
+        "slope_full": [
+          20.0,
+          25.0,
+          30.0
+        ],
+        "people_full": [
+          2000,
+          5000,
+          20000
+        ],
+        "pop_radius": [
+          1,
+          2
+        ]
+      },
+      "jaccard_top_vs_default": {
+        "median": 0.351,
+        "min": 0.19
+      },
+      "default_top_that_are_robust": 16,
+      "cells_robust_anywhere": 16
+    },
+    "top5": [
+      {
+        "rank": 1,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Ruma",
+        "nearest_place": "Harmunpara",
+        "lat": 21.990000000000002,
+        "lon": 92.51,
+        "score": 0.725,
+        "robustness": 0.944,
+        "pattern": "chronic",
+        "active_seasons": 13.6
+      },
+      {
+        "rank": 2,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Ruma",
+        "nearest_place": "Ghalangya",
+        "lat": 21.91,
+        "lon": 92.33,
+        "score": 0.7131,
+        "robustness": 0.963,
+        "pattern": "chronic",
+        "active_seasons": 13.4
+      },
+      {
+        "rank": 3,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Alikadam",
+        "nearest_place": "Tindu",
+        "lat": 21.63,
+        "lon": 92.43,
+        "score": 0.71,
+        "robustness": 1.0,
+        "pattern": "chronic",
+        "active_seasons": 12.4
+      },
+      {
+        "rank": 4,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Thanchi",
+        "nearest_place": "Tindu",
+        "lat": 21.73,
+        "lon": 92.43,
+        "score": 0.7079,
+        "robustness": 1.0,
+        "pattern": "chronic",
+        "active_seasons": 12.2
+      },
+      {
+        "rank": 5,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Ruma",
+        "nearest_place": "Darjeling para",
+        "lat": 21.97,
+        "lon": 92.51,
+        "score": 0.7068,
+        "robustness": 0.944,
+        "pattern": "recurring",
+        "active_seasons": 10.8
+      }
+    ]
+  },
+  "forecast": {
+    "season": 2027,
+    "counts": {
+      "monitor": 3216,
+      "none": 1000,
+      "inspect": 116,
+      "inspect first": 19
+    },
+    "inspect_first_by_district": {
+      "Bandarban": 16,
+      "Rangamati": 2,
+      "Khagrachhari": 1
+    },
+    "people_living_in_inspect_first_cells": 5487,
+    "inspect_first_by_long_term_pattern": {
+      "chronic": 17,
+      "recurring": 2
+    },
+    "robustness": {
+      "variants": 54,
+      "parameters": {
+        "forecast_q": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "slope_full": [
+          20.0,
+          25.0,
+          30.0
+        ],
+        "people_full": [
+          2000,
+          5000,
+          20000
+        ],
+        "pop_radius": [
+          1,
+          2
+        ]
+      },
+      "jaccard_top_vs_default": {
+        "median": 0.429,
+        "min": 0.333
+      },
+      "default_top_that_are_robust": 19,
+      "cells_robust_anywhere": 19
+    },
+    "top5": [
+      {
+        "rank": 1,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Thanchi",
+        "nearest_place": "Chokhyong",
+        "lat": 21.75,
+        "lon": 92.41,
+        "score": 0.6709,
+        "robustness": 1.0,
+        "pattern": "chronic",
+        "active_seasons": 16.5
+      },
+      {
+        "rank": 2,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Thanchi",
+        "nearest_place": "Balipara",
+        "lat": 21.89,
+        "lon": 92.35000000000001,
+        "score": 0.6503,
+        "robustness": 1.0,
+        "pattern": "chronic",
+        "active_seasons": 16.0
+      },
+      {
+        "rank": 3,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Thanchi",
+        "nearest_place": "Chokhyong",
+        "lat": 21.77,
+        "lon": 92.41,
+        "score": 0.6415,
+        "robustness": 1.0,
+        "pattern": "chronic",
+        "active_seasons": 13.4
+      },
+      {
+        "rank": 4,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Alikadam",
+        "nearest_place": "Chokhyong",
+        "lat": 21.77,
+        "lon": 92.37,
+        "score": 0.6151,
+        "robustness": 0.889,
+        "pattern": "chronic",
+        "active_seasons": 15.7
+      },
+      {
+        "rank": 5,
+        "priority": "inspect first",
+        "district": "Bandarban",
+        "upazila": "Rowangchhari",
+        "nearest_place": "Tankabati",
+        "lat": 22.03,
+        "lon": 92.29,
+        "score": 0.6134,
+        "robustness": 1.0,
+        "pattern": "chronic",
+        "active_seasons": 15.2
+      }
+    ]
+  },
+  "forecast_inspection_backtest": {
+    "definition": "top 50 of each ranking, rebuilt from earlier seasons only, vs what burned in season t; steep = median season-t fire slope >= 15 deg; people = >= 200 within ~1.5 km of the season-t fires. Tests finding later burning on steep, populated ground, not landslide usefulness.",
+    "per_year": {
+      "2022": {
+        "base_rate": {
+          "heavy": 0.0593,
+          "steep": 0.0218,
+          "steep_people": 0.014
+        },
+        "inspection_ranking": {
+          "heavy": 10,
+          "steep": 10,
+          "steep_people": 9
+        },
+        "burn_forecast_only": {
+          "heavy": 21,
+          "steep": 8,
+          "steep_people": 5
+        }
+      },
+      "2023": {
+        "base_rate": {
+          "heavy": 0.1517,
+          "steep": 0.0579,
+          "steep_people": 0.0407
+        },
+        "inspection_ranking": {
+          "heavy": 31,
+          "steep": 29,
+          "steep_people": 24
+        },
+        "burn_forecast_only": {
+          "heavy": 32,
+          "steep": 9,
+          "steep_people": 5
+        }
+      },
+      "2024": {
+        "base_rate": {
+          "heavy": 0.074,
+          "steep": 0.0269,
+          "steep_people": 0.0191
+        },
+        "inspection_ranking": {
+          "heavy": 17,
+          "steep": 15,
+          "steep_people": 13
+        },
+        "burn_forecast_only": {
+          "heavy": 24,
+          "steep": 6,
+          "steep_people": 3
+        }
+      },
+      "2025": {
+        "base_rate": {
+          "heavy": 0.1062,
+          "steep": 0.0342,
+          "steep_people": 0.0216
+        },
+        "inspection_ranking": {
+          "heavy": 16,
+          "steep": 15,
+          "steep_people": 13
+        },
+        "burn_forecast_only": {
+          "heavy": 30,
+          "steep": 8,
+          "steep_people": 4
+        }
+      },
+      "2026": {
+        "base_rate": {
+          "heavy": 0.0912,
+          "steep": 0.0363,
+          "steep_people": 0.0257
+        },
+        "inspection_ranking": {
+          "heavy": 19,
+          "steep": 17,
+          "steep_people": 15
+        },
+        "burn_forecast_only": {
+          "heavy": 24,
+          "steep": 9,
+          "steep_people": 5
+        }
+      }
+    },
+    "mean_hits_in_top_50": {
+      "inspection_ranking": {
+        "heavy": 18.6,
+        "steep": 17.2,
+        "steep_people": 14.8
+      },
+      "burn_forecast_only": {
+        "heavy": 26.2,
+        "steep": 8.0,
+        "steep_people": 4.4
+      }
+    },
+    "mean_expected_by_chance_in_top_50": {
+      "heavy": 4.8,
+      "steep": 1.8,
+      "steep_people": 1.2
+    }
+  },
+  "robustness_note": "'Inspect first' = in the top 50 in >= 80% of our own 54-setting grid. This is stability within that grid, not a probability of being correct or evidence of field usefulness.",
+  "coincidence_check_observed": {
+    "burned_cells": 1700,
+    "steep_by_cell_mean_slope": 581,
+    "steep_by_fire_point_median_slope": 580,
+    "steep_by_both": 476,
+    "500plus_people_3km_box_around_cell_centre": 792,
+    "500plus_people_3km_box_around_fire_points": 772,
+    "populated_by_both": 729,
+    "top50_every_cell_median_fire_slope_ge_15": true,
+    "top50_fire_slope_median_deg": 20.8,
+    "top50_median_people_within_1.5km": 383,
+    "top50_mean_steep_share_of_fire_footprints_range": [
+      0.47,
+      0.93
+    ]
+  }
+}

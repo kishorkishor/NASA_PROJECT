@@ -1,0 +1,390 @@
+{
+  "definition": "active season (expected, MODIS terms) = 1/0 from MODIS Aqua in 2003-2011; P(MODIS >= 1 | VIIRS ~1 km cell-days) from 2012, per 0.02 deg cell, Feb-May",
+  "clean_overlap_years": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2023
+  ],
+  "curve_fitted_on_train": {
+    "train_years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019
+    ],
+    "p_by_bin": {
+      "k>=0": 0.052,
+      "k>=1": 0.286,
+      "k>=2": 0.427,
+      "k>=3": 0.547,
+      "k>=4": 0.637,
+      "k>=5": 0.69,
+      "k>=6": 0.778,
+      "k>=8": 0.86,
+      "k>=10": 0.86,
+      "k>=15": 0.86
+    }
+  },
+  "curve_used": {
+    "k>=0": 0.051,
+    "k>=1": 0.284,
+    "k>=2": 0.432,
+    "k>=3": 0.552,
+    "k>=4": 0.64,
+    "k>=5": 0.687,
+    "k>=6": 0.771,
+    "k>=8": 0.844,
+    "k>=10": 0.847,
+    "k>=15": 0.847
+  },
+  "holdout_check_with_train_curve": {
+    "years": [
+      2020,
+      2021,
+      2023
+    ],
+    "brier": 0.1289,
+    "brier_climatology": 0.189,
+    "brier_skill": 0.318,
+    "share_active_modis_vs_harmonized_by_year": {
+      "2020": [
+        0.26,
+        0.244
+      ],
+      "2021": [
+        0.246,
+        0.263
+      ],
+      "2023": [
+        0.253,
+        0.253
+      ]
+    },
+    "overall_share_modis": 0.253,
+    "overall_share_harmonized": 0.253,
+    "cells_active_seasons_spearman": 0.54,
+    "cells_active_seasons_mean_diff_harmonized_minus_modis": 0.0,
+    "reliability_by_bin": {
+      "k>=0": {
+        "n": 6889,
+        "predicted": 0.052,
+        "observed": 0.049
+      },
+      "k>=1": {
+        "n": 2030,
+        "predicted": 0.286,
+        "observed": 0.279
+      },
+      "k>=2": {
+        "n": 1370,
+        "predicted": 0.427,
+        "observed": 0.446
+      },
+      "k>=3": {
+        "n": 1007,
+        "predicted": 0.547,
+        "observed": 0.564
+      },
+      "k>=4": {
+        "n": 751,
+        "predicted": 0.637,
+        "observed": 0.647
+      },
+      "k>=5": {
+        "n": 454,
+        "predicted": 0.69,
+        "observed": 0.683
+      },
+      "k>=6": {
+        "n": 436,
+        "predicted": 0.778,
+        "observed": 0.757
+      },
+      "k>=8": {
+        "n": 98,
+        "predicted": 0.86,
+        "observed": 0.806
+      },
+      "k>=10": {
+        "n": 18,
+        "predicted": 0.86,
+        "observed": 0.889
+      },
+      "k>=15": {
+        "n": 0,
+        "predicted": 0.86,
+        "observed": null
+      }
+    }
+  },
+  "in_sample_check_all_clean_years": {
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2023
+    ],
+    "brier": 0.1233,
+    "brier_climatology": 0.1792,
+    "brier_skill": 0.312,
+    "share_active_modis_vs_harmonized_by_year": {
+      "2012": [
+        0.288,
+        0.236
+      ],
+      "2013": [
+        0.264,
+        0.271
+      ],
+      "2014": [
+        0.262,
+        0.302
+      ],
+      "2015": [
+        0.162,
+        0.201
+      ],
+      "2016": [
+        0.194,
+        0.182
+      ],
+      "2017": [
+        0.165,
+        0.174
+      ],
+      "2018": [
+        0.229,
+        0.214
+      ],
+      "2019": [
+        0.25,
+        0.235
+      ],
+      "2020": [
+        0.26,
+        0.244
+      ],
+      "2021": [
+        0.246,
+        0.263
+      ],
+      "2023": [
+        0.253,
+        0.253
+      ]
+    },
+    "overall_share_modis": 0.234,
+    "overall_share_harmonized": 0.234,
+    "cells_active_seasons_spearman": 0.884,
+    "cells_active_seasons_mean_diff_harmonized_minus_modis": 0.0,
+    "reliability_by_bin": {
+      "k>=0": {
+        "n": 27008,
+        "predicted": 0.051,
+        "observed": 0.051
+      },
+      "k>=1": {
+        "n": 7265,
+        "predicted": 0.284,
+        "observed": 0.284
+      },
+      "k>=2": {
+        "n": 4748,
+        "predicted": 0.432,
+        "observed": 0.432
+      },
+      "k>=3": {
+        "n": 3258,
+        "predicted": 0.552,
+        "observed": 0.552
+      },
+      "k>=4": {
+        "n": 2357,
+        "predicted": 0.64,
+        "observed": 0.64
+      },
+      "k>=5": {
+        "n": 1443,
+        "predicted": 0.687,
+        "observed": 0.687
+      },
+      "k>=6": {
+        "n": 1374,
+        "predicted": 0.771,
+        "observed": 0.771
+      },
+      "k>=8": {
+        "n": 333,
+        "predicted": 0.844,
+        "observed": 0.844
+      },
+      "k>=10": {
+        "n": 72,
+        "predicted": 0.847,
+        "observed": 0.847
+      },
+      "k>=15": {
+        "n": 3,
+        "predicted": 0.847,
+        "observed": 0.667
+      }
+    }
+  },
+  "share_active_2012_on": {
+    "modis": 0.221,
+    "harmonized": 0.225,
+    "naive": 0.422
+  },
+  "share_of_cells_active_by_year": {
+    "2003": {
+      "modis": 0.294,
+      "harmonized": 0.294,
+      "naive": 0.294
+    },
+    "2004": {
+      "modis": 0.278,
+      "harmonized": 0.278,
+      "naive": 0.278
+    },
+    "2005": {
+      "modis": 0.34,
+      "harmonized": 0.34,
+      "naive": 0.34
+    },
+    "2006": {
+      "modis": 0.337,
+      "harmonized": 0.337,
+      "naive": 0.337
+    },
+    "2007": {
+      "modis": 0.342,
+      "harmonized": 0.342,
+      "naive": 0.342
+    },
+    "2008": {
+      "modis": 0.302,
+      "harmonized": 0.302,
+      "naive": 0.302
+    },
+    "2009": {
+      "modis": 0.323,
+      "harmonized": 0.323,
+      "naive": 0.323
+    },
+    "2010": {
+      "modis": 0.268,
+      "harmonized": 0.268,
+      "naive": 0.268
+    },
+    "2011": {
+      "modis": 0.265,
+      "harmonized": 0.265,
+      "naive": 0.265
+    },
+    "2012": {
+      "modis": 0.288,
+      "harmonized": 0.236,
+      "naive": 0.442
+    },
+    "2013": {
+      "modis": 0.264,
+      "harmonized": 0.271,
+      "naive": 0.502
+    },
+    "2014": {
+      "modis": 0.262,
+      "harmonized": 0.302,
+      "naive": 0.526
+    },
+    "2015": {
+      "modis": 0.162,
+      "harmonized": 0.201,
+      "naive": 0.401
+    },
+    "2016": {
+      "modis": 0.194,
+      "harmonized": 0.182,
+      "naive": 0.343
+    },
+    "2017": {
+      "modis": 0.165,
+      "harmonized": 0.174,
+      "naive": 0.339
+    },
+    "2018": {
+      "modis": 0.229,
+      "harmonized": 0.214,
+      "naive": 0.395
+    },
+    "2019": {
+      "modis": 0.25,
+      "harmonized": 0.235,
+      "naive": 0.429
+    },
+    "2020": {
+      "modis": 0.26,
+      "harmonized": 0.244,
+      "naive": 0.459
+    },
+    "2021": {
+      "modis": 0.246,
+      "harmonized": 0.263,
+      "naive": 0.489
+    },
+    "2022": {
+      "modis": 0.09,
+      "harmonized": 0.182,
+      "naive": 0.348
+    },
+    "2023": {
+      "modis": 0.253,
+      "harmonized": 0.253,
+      "naive": 0.47
+    },
+    "2024": {
+      "modis": 0.197,
+      "harmonized": 0.194,
+      "naive": 0.373
+    },
+    "2025": {
+      "modis": 0.245,
+      "harmonized": 0.223,
+      "naive": 0.428
+    },
+    "2026": {
+      "modis": 0.205,
+      "harmonized": 0.207,
+      "naive": 0.391
+    }
+  },
+  "cells_that_look_worse_after_2012": {
+    "naive_stitch": 986,
+    "harmonized": 27
+  },
+  "pattern_counts": {
+    "rare": 1666,
+    "recurring": 1062,
+    "chronic": 845,
+    "occasional": 762,
+    "new": 16
+  }
+}

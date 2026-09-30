@@ -1,0 +1,1052 @@
+{
+  "method": "MODIS Aqua (reference) + VIIRS S-NPP, vegetation fires only (type 0). VIIRS collapsed to unique 0.01 deg cell-days, then scaled per region x season. Calibrated on pre-drift overlap years only.",
+  "data_end": "2026-06-30",
+  "calibration_years": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "reference_years_for_jump": [
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2023
+  ],
+  "scaling_factors": {
+    "hills/burn": 0.383,
+    "hills/off": 0.125,
+    "plains/burn": 0.099,
+    "plains/off": 0.11
+  },
+  "scaling_factors_95ci_bootstrap_over_years": {
+    "hills/burn": [
+      0.342,
+      0.428
+    ],
+    "hills/off": [
+      0.098,
+      0.158
+    ],
+    "plains/burn": [
+      0.088,
+      0.114
+    ],
+    "plains/off": [
+      0.098,
+      0.118
+    ]
+  },
+  "apparent_jump_after_2012": {
+    "naive_stitched": 3.29,
+    "harmonized": 0.7,
+    "harmonized_95ci": [
+      0.63,
+      0.77
+    ],
+    "modis_pre_drift_reference": 0.73,
+    "harmonized_same_years_as_reference": 0.73
+  },
+  "apparent_jump_definition": "mean annual count in later years / mean 2003-2011. 'harmonized' uses 2012-2025; the MODIS reference uses pre-drift years only. harmonized_same_years_as_reference is close to the reference by construction (factors are fitted on those years) - see validation.chronological_holdout for the independent check. Years with an Aqua outage month are left out of the reference.",
+  "trend_hills_burn_season": {
+    "kendall_tau": -0.493,
+    "p_value": 0.0005,
+    "theil_sen_slope_per_year": -60.08,
+    "years": [
+      2003,
+      2026
+    ],
+    "bootstrap_share_negative_and_p_lt_0.05": 1.0
+  },
+  "trend_note": "Declining harmonized detected fire activity under this calibration. The bootstrap only varies the calibration factors; it does not cover missed fires, changing observation conditions or model mismatch.",
+  "interval_note": "95% calibration-factor uncertainty (bootstrap over calibration years), not a full error bound.",
+  "trend_all_bangladesh": {
+    "kendall_tau": -0.502,
+    "p_value": 0.0006,
+    "theil_sen_slope_per_year": -62.81,
+    "years": [
+      2003,
+      2025
+    ]
+  },
+  "validation": {
+    "aqua_orbit_drift": {
+      "median_local_overpass_h": {
+        "2012": {
+          "Aqua": 13.13,
+          "S-NPP": 13.23
+        },
+        "2013": {
+          "Aqua": 13.33,
+          "S-NPP": 13.17
+        },
+        "2014": {
+          "Aqua": 13.25,
+          "S-NPP": 13.22
+        },
+        "2015": {
+          "Aqua": 13.25,
+          "S-NPP": 13.23
+        },
+        "2016": {
+          "Aqua": 13.33,
+          "S-NPP": 13.15
+        },
+        "2017": {
+          "Aqua": 13.33,
+          "S-NPP": 13.25
+        },
+        "2018": {
+          "Aqua": 13.25,
+          "S-NPP": 13.27
+        },
+        "2019": {
+          "Aqua": 13.23,
+          "S-NPP": 13.25
+        },
+        "2020": {
+          "Aqua": 13.23,
+          "S-NPP": 13.13
+        },
+        "2021": {
+          "Aqua": 13.33,
+          "S-NPP": 13.13
+        },
+        "2022": {
+          "Aqua": 13.25,
+          "S-NPP": 13.25
+        },
+        "2023": {
+          "Aqua": 13.37,
+          "S-NPP": 13.17
+        },
+        "2024": {
+          "Aqua": 13.6,
+          "S-NPP": 13.17
+        },
+        "2025": {
+          "Aqua": 14.2,
+          "S-NPP": 13.15
+        },
+        "2026": {
+          "Aqua": 14.92,
+          "S-NPP": 13.28
+        }
+      },
+      "aqua_baseline_2012_2021_h": 13.25,
+      "tolerance_h": 0.15,
+      "drift_years": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    "aqua_outages_documented": [
+      {
+        "start": "2022-03-31",
+        "end": "2022-04-17",
+        "source": "Aqua safe mode, MODIS Characterization Support Team event record"
+      }
+    ],
+    "aqua_outage_months_excluded": [
+      "2022-03",
+      "2022-04"
+    ],
+    "heuristic_gap_months_found": [
+      "2022-04"
+    ],
+    "heuristic_gaps_covered_by_documented_outages": true,
+    "procedure_note": "The outage exclusion was added after the first holdout run had been inspected; the calibration fit itself never uses test years. Documented outage days are removed from both sensors.",
+    "leave_one_year_out": {
+      "years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "results": {
+        "naive (raw VIIRS counts, no fix)": {
+          "monthly_MAE": 313.4,
+          "monthly_R2": -9.212,
+          "annual_total_bias_pct": 372.7,
+          "annual_median_abs_err_pct": 603.2,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.865,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": 306.7,
+              "median_abs_err_pct": 280.5
+            },
+            "hills/off": {
+              "yearly_r": 0.551,
+              "mean_true_per_year": 16.7,
+              "bias_pct": 783.5,
+              "median_abs_err_pct": 970.3
+            },
+            "plains/burn": {
+              "yearly_r": 0.734,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 1053.1,
+              "median_abs_err_pct": 1032.5
+            },
+            "plains/off": {
+              "yearly_r": 0.793,
+              "mean_true_per_year": 101.3,
+              "bias_pct": 923.8,
+              "median_abs_err_pct": 870.2
+            }
+          }
+        },
+        "monthly climatology (training-years mean, no satellite data)": {
+          "monthly_MAE": 39.0,
+          "monthly_R2": 0.722,
+          "annual_total_bias_pct": 0.0,
+          "annual_median_abs_err_pct": 19.0,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": -1.0,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": 0.0,
+              "median_abs_err_pct": 21.8
+            },
+            "hills/off": {
+              "yearly_r": -1.0,
+              "mean_true_per_year": 16.7,
+              "bias_pct": 0.0,
+              "median_abs_err_pct": 33.6
+            },
+            "plains/burn": {
+              "yearly_r": -1.0,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 0.0,
+              "median_abs_err_pct": 25.4
+            },
+            "plains/off": {
+              "yearly_r": -1.0,
+              "mean_true_per_year": 101.3,
+              "bias_pct": 0.0,
+              "median_abs_err_pct": 24.3
+            }
+          }
+        },
+        "one global ratio on raw counts": {
+          "monthly_MAE": 27.9,
+          "monthly_R2": 0.924,
+          "annual_total_bias_pct": 0.1,
+          "annual_median_abs_err_pct": 53.9,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.837,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": -13.9,
+              "median_abs_err_pct": 20.6
+            },
+            "hills/off": {
+              "yearly_r": 0.538,
+              "mean_true_per_year": 16.7,
+              "bias_pct": 87.2,
+              "median_abs_err_pct": 125.5
+            },
+            "plains/burn": {
+              "yearly_r": 0.726,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 144.4,
+              "median_abs_err_pct": 139.2
+            },
+            "plains/off": {
+              "yearly_r": 0.788,
+              "mean_true_per_year": 101.3,
+              "bias_pct": 117.0,
+              "median_abs_err_pct": 108.0
+            }
+          }
+        },
+        "one global ratio on 1 km cell-days": {
+          "monthly_MAE": 37.7,
+          "monthly_R2": 0.87,
+          "annual_total_bias_pct": 0.1,
+          "annual_median_abs_err_pct": 78.6,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.796,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": -20.6,
+              "median_abs_err_pct": 23.9
+            },
+            "hills/off": {
+              "yearly_r": 0.508,
+              "mean_true_per_year": 16.7,
+              "bias_pct": 143.0,
+              "median_abs_err_pct": 185.0
+            },
+            "plains/burn": {
+              "yearly_r": 0.72,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 206.1,
+              "median_abs_err_pct": 195.9
+            },
+            "plains/off": {
+              "yearly_r": 0.775,
+              "mean_true_per_year": 101.3,
+              "bias_pct": 177.5,
+              "median_abs_err_pct": 167.9
+            }
+          }
+        },
+        "season-only ratio on 1 km cell-days": {
+          "monthly_MAE": 28.0,
+          "monthly_R2": 0.905,
+          "annual_total_bias_pct": 0.2,
+          "annual_median_abs_err_pct": 47.4,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.795,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": -11.0,
+              "median_abs_err_pct": 19.4
+            },
+            "hills/off": {
+              "yearly_r": 0.481,
+              "mean_true_per_year": 16.7,
+              "bias_pct": -10.8,
+              "median_abs_err_pct": 26.5
+            },
+            "plains/burn": {
+              "yearly_r": 0.72,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 243.1,
+              "median_abs_err_pct": 230.0
+            },
+            "plains/off": {
+              "yearly_r": 0.741,
+              "mean_true_per_year": 101.3,
+              "bias_pct": 1.9,
+              "median_abs_err_pct": 8.0
+            }
+          }
+        },
+        "region-only ratio on 1 km cell-days": {
+          "monthly_MAE": 19.5,
+          "monthly_R2": 0.927,
+          "annual_total_bias_pct": 0.2,
+          "annual_median_abs_err_pct": 10.6,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.794,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": -1.6,
+              "median_abs_err_pct": 10.6
+            },
+            "hills/off": {
+              "yearly_r": 0.516,
+              "mean_true_per_year": 16.7,
+              "bias_pct": 201.0,
+              "median_abs_err_pct": 252.1
+            },
+            "plains/burn": {
+              "yearly_r": 0.706,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 5.6,
+              "median_abs_err_pct": 13.8
+            },
+            "plains/off": {
+              "yearly_r": 0.753,
+              "mean_true_per_year": 101.3,
+              "bias_pct": -4.5,
+              "median_abs_err_pct": 11.2
+            }
+          }
+        },
+        "region x season ratio on 1 km cell-days": {
+          "monthly_MAE": 18.3,
+          "monthly_R2": 0.927,
+          "annual_total_bias_pct": 0.2,
+          "annual_median_abs_err_pct": 10.6,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.794,
+              "mean_true_per_year": 1815.2,
+              "bias_pct": 0.3,
+              "median_abs_err_pct": 9.7
+            },
+            "hills/off": {
+              "yearly_r": 0.296,
+              "mean_true_per_year": 16.7,
+              "bias_pct": -0.2,
+              "median_abs_err_pct": 28.6
+            },
+            "plains/burn": {
+              "yearly_r": 0.689,
+              "mean_true_per_year": 84.0,
+              "bias_pct": 0.4,
+              "median_abs_err_pct": 17.6
+            },
+            "plains/off": {
+              "yearly_r": 0.737,
+              "mean_true_per_year": 101.3,
+              "bias_pct": 0.0,
+              "median_abs_err_pct": 8.0
+            }
+          }
+        }
+      }
+    },
+    "chronological_holdout": {
+      "train_years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "test_years": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "results": {
+        "naive (raw VIIRS counts, no fix)": {
+          "monthly_MAE": 293.4,
+          "monthly_R2": -9.036,
+          "annual_total_bias_pct": 371.2,
+          "annual_median_abs_err_pct": 608.7,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.985,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": 312.4,
+              "median_abs_err_pct": 306.1
+            },
+            "hills/off": {
+              "yearly_r": 0.975,
+              "mean_true_per_year": 23.5,
+              "bias_pct": 575.5,
+              "median_abs_err_pct": 760.6
+            },
+            "plains/burn": {
+              "yearly_r": 0.92,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 1191.3,
+              "median_abs_err_pct": 1186.0
+            },
+            "plains/off": {
+              "yearly_r": 0.983,
+              "mean_true_per_year": 81.8,
+              "bias_pct": 859.3,
+              "median_abs_err_pct": 854.0
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 371.2
+        },
+        "monthly climatology (training-years mean, no satellite data)": {
+          "monthly_MAE": 50.8,
+          "monthly_R2": 0.572,
+          "annual_total_bias_pct": 9.6,
+          "annual_median_abs_err_pct": 21.9,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": null,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": 8.1,
+              "median_abs_err_pct": 13.3
+            },
+            "hills/off": {
+              "yearly_r": null,
+              "mean_true_per_year": 23.5,
+              "bias_pct": -43.6,
+              "median_abs_err_pct": 26.2
+            },
+            "plains/burn": {
+              "yearly_r": null,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 32.6,
+              "median_abs_err_pct": 24.4
+            },
+            "plains/off": {
+              "yearly_r": null,
+              "mean_true_per_year": 81.8,
+              "bias_pct": 35.9,
+              "median_abs_err_pct": 46.2
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 9.6
+        },
+        "one global ratio on raw counts": {
+          "monthly_MAE": 23.3,
+          "monthly_R2": 0.962,
+          "annual_total_bias_pct": -0.5,
+          "annual_median_abs_err_pct": 65.8,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.985,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": -12.9,
+              "median_abs_err_pct": 14.2
+            },
+            "hills/off": {
+              "yearly_r": 0.975,
+              "mean_true_per_year": 23.5,
+              "bias_pct": 42.7,
+              "median_abs_err_pct": 81.8
+            },
+            "plains/burn": {
+              "yearly_r": 0.92,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 172.8,
+              "median_abs_err_pct": 171.6
+            },
+            "plains/off": {
+              "yearly_r": 0.983,
+              "mean_true_per_year": 81.8,
+              "bias_pct": 102.6,
+              "median_abs_err_pct": 101.5
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -0.5
+        },
+        "one global ratio on 1 km cell-days": {
+          "monthly_MAE": 33.7,
+          "monthly_R2": 0.913,
+          "annual_total_bias_pct": -2.0,
+          "annual_median_abs_err_pct": 93.3,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.986,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": -20.6,
+              "median_abs_err_pct": 22.4
+            },
+            "hills/off": {
+              "yearly_r": 0.965,
+              "mean_true_per_year": 23.5,
+              "bias_pct": 82.4,
+              "median_abs_err_pct": 131.8
+            },
+            "plains/burn": {
+              "yearly_r": 0.927,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 240.1,
+              "median_abs_err_pct": 241.2
+            },
+            "plains/off": {
+              "yearly_r": 0.99,
+              "mean_true_per_year": 81.8,
+              "bias_pct": 160.9,
+              "median_abs_err_pct": 162.8
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -2.0
+        },
+        "season-only ratio on 1 km cell-days": {
+          "monthly_MAE": 24.5,
+          "monthly_R2": 0.955,
+          "annual_total_bias_pct": 0.3,
+          "annual_median_abs_err_pct": 40.5,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.986,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": -10.2,
+              "median_abs_err_pct": 12.3
+            },
+            "hills/off": {
+              "yearly_r": 0.965,
+              "mean_true_per_year": 23.5,
+              "bias_pct": -35.3,
+              "median_abs_err_pct": 18.5
+            },
+            "plains/burn": {
+              "yearly_r": 0.927,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 284.7,
+              "median_abs_err_pct": 285.9
+            },
+            "plains/off": {
+              "yearly_r": 0.99,
+              "mean_true_per_year": 81.8,
+              "bias_pct": -7.4,
+              "median_abs_err_pct": 6.7
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 0.3
+        },
+        "region-only ratio on 1 km cell-days": {
+          "monthly_MAE": 14.5,
+          "monthly_R2": 0.983,
+          "annual_total_bias_pct": 1.2,
+          "annual_median_abs_err_pct": 7.6,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.986,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": -0.8,
+              "median_abs_err_pct": 7.9
+            },
+            "hills/off": {
+              "yearly_r": 0.965,
+              "mean_true_per_year": 23.5,
+              "bias_pct": 127.9,
+              "median_abs_err_pct": 189.6
+            },
+            "plains/burn": {
+              "yearly_r": 0.927,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 19.5,
+              "median_abs_err_pct": 23.7
+            },
+            "plains/off": {
+              "yearly_r": 0.99,
+              "mean_true_per_year": 81.8,
+              "bias_pct": -8.4,
+              "median_abs_err_pct": 7.7
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 1.2
+        },
+        "region x season ratio on 1 km cell-days": {
+          "monthly_MAE": 13.4,
+          "monthly_R2": 0.985,
+          "annual_total_bias_pct": 0.9,
+          "annual_median_abs_err_pct": 8.0,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.986,
+              "mean_true_per_year": 1722.0,
+              "bias_pct": 1.1,
+              "median_abs_err_pct": 8.1
+            },
+            "hills/off": {
+              "yearly_r": 0.965,
+              "mean_true_per_year": 23.5,
+              "bias_pct": -37.8,
+              "median_abs_err_pct": 20.9
+            },
+            "plains/burn": {
+              "yearly_r": 0.927,
+              "mean_true_per_year": 69.0,
+              "bias_pct": 17.3,
+              "median_abs_err_pct": 23.3
+            },
+            "plains/off": {
+              "yearly_r": 0.99,
+              "mean_true_per_year": 81.8,
+              "bias_pct": -7.0,
+              "median_abs_err_pct": 6.3
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 0.9
+        }
+      }
+    },
+    "post_drift_divergence": {
+      "note": "Same factors applied to drifted years. Divergence here reflects Aqua's changed sampling time, not only harmonization error - MODIS is no longer a stable reference in these years.",
+      "years": [
+        2024,
+        2025,
+        2026
+      ],
+      "results": {
+        "naive (raw VIIRS counts, no fix)": {
+          "monthly_MAE": 317.2,
+          "monthly_R2": -9.332,
+          "annual_total_bias_pct": 360.6,
+          "annual_median_abs_err_pct": 674.6,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.775,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": 304.6,
+              "median_abs_err_pct": 290.9
+            },
+            "hills/off": {
+              "yearly_r": 0.625,
+              "mean_true_per_year": 14.7,
+              "bias_pct": 697.7,
+              "median_abs_err_pct": 600.0
+            },
+            "plains/burn": {
+              "yearly_r": 0.803,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 1297.1,
+              "median_abs_err_pct": 1395.0
+            },
+            "plains/off": {
+              "yearly_r": 1.0,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 1020.3,
+              "median_abs_err_pct": 1027.0
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 360.6
+        },
+        "monthly climatology (training-years mean, no satellite data)": {
+          "monthly_MAE": 38.6,
+          "monthly_R2": 0.759,
+          "annual_total_bias_pct": 13.3,
+          "annual_median_abs_err_pct": 30.0,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": null,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": 11.1,
+              "median_abs_err_pct": 20.4
+            },
+            "hills/off": {
+              "yearly_r": 0.918,
+              "mean_true_per_year": 14.7,
+              "bias_pct": -3.2,
+              "median_abs_err_pct": 11.1
+            },
+            "plains/burn": {
+              "yearly_r": null,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 48.2,
+              "median_abs_err_pct": 40.0
+            },
+            "plains/off": {
+              "yearly_r": 0.999,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 52.1,
+              "median_abs_err_pct": 55.9
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": 13.3
+        },
+        "one global ratio on raw counts": {
+          "monthly_MAE": 25.9,
+          "monthly_R2": 0.946,
+          "annual_total_bias_pct": -2.6,
+          "annual_median_abs_err_pct": 73.9,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.775,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": -14.4,
+              "median_abs_err_pct": 17.3
+            },
+            "hills/off": {
+              "yearly_r": 0.625,
+              "mean_true_per_year": 14.7,
+              "bias_pct": 68.7,
+              "median_abs_err_pct": 48.1
+            },
+            "plains/burn": {
+              "yearly_r": 0.803,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 195.5,
+              "median_abs_err_pct": 216.2
+            },
+            "plains/off": {
+              "yearly_r": 1.0,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 137.0,
+              "median_abs_err_pct": 138.4
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -2.6
+        },
+        "one global ratio on 1 km cell-days": {
+          "monthly_MAE": 34.1,
+          "monthly_R2": 0.901,
+          "annual_total_bias_pct": -5.3,
+          "annual_median_abs_err_pct": 106.3,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.8,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": -22.6,
+              "median_abs_err_pct": 25.1
+            },
+            "hills/off": {
+              "yearly_r": 0.58,
+              "mean_true_per_year": 14.7,
+              "bias_pct": 113.3,
+              "median_abs_err_pct": 82.3
+            },
+            "plains/burn": {
+              "yearly_r": 0.801,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 274.7,
+              "median_abs_err_pct": 303.0
+            },
+            "plains/off": {
+              "yearly_r": 0.998,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 202.8,
+              "median_abs_err_pct": 196.6
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -5.3
+        },
+        "season-only ratio on 1 km cell-days": {
+          "monthly_MAE": 26.8,
+          "monthly_R2": 0.939,
+          "annual_total_bias_pct": -1.9,
+          "annual_median_abs_err_pct": 71.4,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.8,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": -13.3,
+              "median_abs_err_pct": 16.1
+            },
+            "hills/off": {
+              "yearly_r": 0.58,
+              "mean_true_per_year": 14.7,
+              "bias_pct": -21.6,
+              "median_abs_err_pct": 33.0
+            },
+            "plains/burn": {
+              "yearly_r": 0.801,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 319.6,
+              "median_abs_err_pct": 351.3
+            },
+            "plains/off": {
+              "yearly_r": 0.998,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 11.3,
+              "median_abs_err_pct": 9.0
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -1.9
+        },
+        "region-only ratio on 1 km cell-days": {
+          "monthly_MAE": 16.4,
+          "monthly_R2": 0.965,
+          "annual_total_bias_pct": -1.4,
+          "annual_median_abs_err_pct": 12.7,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.8,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": -4.1,
+              "median_abs_err_pct": 13.3
+            },
+            "hills/off": {
+              "yearly_r": 0.58,
+              "mean_true_per_year": 14.7,
+              "bias_pct": 164.1,
+              "median_abs_err_pct": 125.6
+            },
+            "plains/burn": {
+              "yearly_r": 0.801,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 29.3,
+              "median_abs_err_pct": 39.0
+            },
+            "plains/off": {
+              "yearly_r": 0.998,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 4.4,
+              "median_abs_err_pct": 2.3
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -1.4
+        },
+        "region x season ratio on 1 km cell-days": {
+          "monthly_MAE": 15.0,
+          "monthly_R2": 0.967,
+          "annual_total_bias_pct": -1.3,
+          "annual_median_abs_err_pct": 13.3,
+          "by_region_season": {
+            "hills/burn": {
+              "yearly_r": 0.8,
+              "mean_true_per_year": 1634.3,
+              "bias_pct": -2.3,
+              "median_abs_err_pct": 11.9
+            },
+            "hills/off": {
+              "yearly_r": 0.58,
+              "mean_true_per_year": 14.7,
+              "bias_pct": -12.1,
+              "median_abs_err_pct": 24.9
+            },
+            "plains/burn": {
+              "yearly_r": 0.801,
+              "mean_true_per_year": 56.7,
+              "bias_pct": 22.6,
+              "median_abs_err_pct": 31.9
+            },
+            "plains/off": {
+              "yearly_r": 0.998,
+              "mean_true_per_year": 51.0,
+              "bias_pct": 9.3,
+              "median_abs_err_pct": 7.1
+            }
+          },
+          "test_period_total_pred_vs_modis_pct": -1.3
+        }
+      }
+    },
+    "calibration_sensitivity": {
+      "pre-drift years (used)": {
+        "years": [
+          2012,
+          2023
+        ],
+        "factors": {
+          "hills/burn": 0.383,
+          "hills/off": 0.125,
+          "plains/burn": 0.099,
+          "plains/off": 0.11
+        }
+      },
+      "2012-2019 only": {
+        "years": [
+          2012,
+          2019
+        ],
+        "factors": {
+          "hills/burn": 0.384,
+          "hills/off": 0.103,
+          "plains/burn": 0.104,
+          "plains/off": 0.108
+        }
+      },
+      "all overlap years incl. drifted": {
+        "years": [
+          2012,
+          2026
+        ],
+        "factors": {
+          "hills/burn": 0.385,
+          "hills/off": 0.128,
+          "plains/burn": 0.096,
+          "plains/off": 0.109
+        }
+      },
+      "drifted years only": {
+        "years": [
+          2024,
+          2026
+        ],
+        "factors": {
+          "hills/burn": 0.392,
+          "hills/off": 0.142,
+          "plains/burn": 0.081,
+          "plains/off": 0.1
+        }
+      }
+    },
+    "per_year_ratio_modis_per_viirs_cellday": {
+      "2012": {
+        "hills/burn": 0.536,
+        "hills/off": 0.112,
+        "plains/burn": 0.149,
+        "plains/off": 0.125
+      },
+      "2013": {
+        "hills/burn": 0.372,
+        "hills/off": 0.157,
+        "plains/burn": 0.076,
+        "plains/off": 0.108
+      },
+      "2014": {
+        "hills/burn": 0.276,
+        "hills/off": 0.084,
+        "plains/burn": 0.111,
+        "plains/off": 0.118
+      },
+      "2015": {
+        "hills/burn": 0.285,
+        "hills/off": 0.091,
+        "plains/burn": 0.086,
+        "plains/off": 0.102
+      },
+      "2016": {
+        "hills/burn": 0.44,
+        "hills/off": 0.098,
+        "plains/burn": 0.105,
+        "plains/off": 0.127
+      },
+      "2017": {
+        "hills/burn": 0.387,
+        "hills/off": 0.073,
+        "plains/burn": 0.101,
+        "plains/off": 0.058
+      },
+      "2018": {
+        "hills/burn": 0.416,
+        "hills/off": 0.085,
+        "plains/burn": 0.113,
+        "plains/off": 0.119
+      },
+      "2019": {
+        "hills/burn": 0.418,
+        "hills/off": 0.143,
+        "plains/burn": 0.118,
+        "plains/off": 0.102
+      },
+      "2020": {
+        "hills/burn": 0.412,
+        "hills/off": 0.106,
+        "plains/burn": 0.08,
+        "plains/off": 0.112
+      },
+      "2021": {
+        "hills/burn": 0.351,
+        "hills/off": 0.256,
+        "plains/burn": 0.099,
+        "plains/off": 0.12
+      },
+      "2022": {
+        "hills/burn": 0.44,
+        "hills/off": 0.107,
+        "plains/burn": 0.124,
+        "plains/off": 0.111
+      },
+      "2023": {
+        "hills/burn": 0.369,
+        "hills/off": 0.167,
+        "plains/burn": 0.076,
+        "plains/off": 0.118
+      },
+      "2024": {
+        "hills/burn": 0.406,
+        "hills/off": 0.167,
+        "plains/burn": 0.111,
+        "plains/off": 0.102
+      },
+      "2025": {
+        "hills/burn": 0.435,
+        "hills/off": 0.103,
+        "plains/burn": 0.075,
+        "plains/off": 0.097
+      },
+      "2026": {
+        "hills/burn": 0.332,
+        "hills/off": 0.197,
+        "plains/burn": 0.05,
+        "plains/off": 0.103
+      }
+    }
+  }
+}

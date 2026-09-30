@@ -1,0 +1,278 @@
+{
+  "target": ">= 3 VIIRS fire days in Feb-May, per 0.02 deg cell",
+  "evaluation": "rolling origin over test seasons 2022-2026: for each season t the cell calibration curve, the hills/burn factor and the GBM (trained on seasons 2015..t-1) are refitted on earlier seasons only",
+  "interpretation": "The history baseline performed best in this comparison; this is not a general claim that simple rules beat machine learning.",
+  "test_cells_per_year": 4351,
+  "test_heavy_burn_rate_by_year": {
+    "2022": 0.059,
+    "2023": 0.152,
+    "2024": 0.074,
+    "2025": 0.106,
+    "2026": 0.091
+  },
+  "decision_rule": "simplest of ['burned_last_year', 'viirs_history', 'long_harmonized_history', 'gbm'] within 0.02 of the best mean precision@50 and mean AP",
+  "chosen_default": "viirs_history",
+  "summary_over_test_years": {
+    "burned_last_year": {
+      "roc_auc": {
+        "mean": 0.78,
+        "min": 0.743,
+        "max": 0.82
+      },
+      "avg_precision": {
+        "mean": 0.245,
+        "min": 0.174,
+        "max": 0.349
+      },
+      "precision_at_20": {
+        "mean": 0.395,
+        "min": 0.287,
+        "max": 0.543
+      },
+      "precision_at_50": {
+        "mean": 0.395,
+        "min": 0.307,
+        "max": 0.541
+      },
+      "precision_at_100": {
+        "mean": 0.398,
+        "min": 0.302,
+        "max": 0.54
+      }
+    },
+    "viirs_history": {
+      "roc_auc": {
+        "mean": 0.85,
+        "min": 0.815,
+        "max": 0.867
+      },
+      "avg_precision": {
+        "mean": 0.339,
+        "min": 0.242,
+        "max": 0.484
+      },
+      "precision_at_20": {
+        "mean": 0.593,
+        "min": 0.35,
+        "max": 0.9
+      },
+      "precision_at_50": {
+        "mean": 0.527,
+        "min": 0.423,
+        "max": 0.64
+      },
+      "precision_at_100": {
+        "mean": 0.459,
+        "min": 0.327,
+        "max": 0.59
+      }
+    },
+    "long_harmonized_history": {
+      "roc_auc": {
+        "mean": 0.847,
+        "min": 0.805,
+        "max": 0.869
+      },
+      "avg_precision": {
+        "mean": 0.324,
+        "min": 0.252,
+        "max": 0.454
+      },
+      "precision_at_20": {
+        "mean": 0.49,
+        "min": 0.25,
+        "max": 0.75
+      },
+      "precision_at_50": {
+        "mean": 0.41,
+        "min": 0.3,
+        "max": 0.55
+      },
+      "precision_at_100": {
+        "mean": 0.38,
+        "min": 0.27,
+        "max": 0.51
+      }
+    },
+    "gbm": {
+      "roc_auc": {
+        "mean": 0.856,
+        "min": 0.821,
+        "max": 0.875
+      },
+      "avg_precision": {
+        "mean": 0.335,
+        "min": 0.202,
+        "max": 0.507
+      },
+      "precision_at_20": {
+        "mean": 0.53,
+        "min": 0.2,
+        "max": 0.8
+      },
+      "precision_at_50": {
+        "mean": 0.5,
+        "min": 0.26,
+        "max": 0.8
+      },
+      "precision_at_100": {
+        "mean": 0.446,
+        "min": 0.23,
+        "max": 0.69
+      }
+    }
+  },
+  "per_test_year": {
+    "2022": {
+      "burned_last_year": {
+        "roc_auc": 0.803,
+        "avg_precision": 0.174,
+        "precision_at_20": 0.347,
+        "precision_at_50": 0.307,
+        "precision_at_100": 0.302
+      },
+      "viirs_history": {
+        "roc_auc": 0.856,
+        "avg_precision": 0.242,
+        "precision_at_20": 0.463,
+        "precision_at_50": 0.423,
+        "precision_at_100": 0.327
+      },
+      "long_harmonized_history": {
+        "roc_auc": 0.864,
+        "avg_precision": 0.252,
+        "precision_at_20": 0.25,
+        "precision_at_50": 0.3,
+        "precision_at_100": 0.27
+      },
+      "gbm": {
+        "roc_auc": 0.851,
+        "avg_precision": 0.202,
+        "precision_at_20": 0.2,
+        "precision_at_50": 0.26,
+        "precision_at_100": 0.23
+      }
+    },
+    "2023": {
+      "burned_last_year": {
+        "roc_auc": 0.763,
+        "avg_precision": 0.349,
+        "precision_at_20": 0.543,
+        "precision_at_50": 0.541,
+        "precision_at_100": 0.54
+      },
+      "viirs_history": {
+        "roc_auc": 0.864,
+        "avg_precision": 0.484,
+        "precision_at_20": 0.9,
+        "precision_at_50": 0.64,
+        "precision_at_100": 0.59
+      },
+      "long_harmonized_history": {
+        "roc_auc": 0.857,
+        "avg_precision": 0.454,
+        "precision_at_20": 0.6,
+        "precision_at_50": 0.55,
+        "precision_at_100": 0.51
+      },
+      "gbm": {
+        "roc_auc": 0.871,
+        "avg_precision": 0.507,
+        "precision_at_20": 0.8,
+        "precision_at_50": 0.8,
+        "precision_at_100": 0.69
+      }
+    },
+    "2024": {
+      "burned_last_year": {
+        "roc_auc": 0.82,
+        "avg_precision": 0.228,
+        "precision_at_20": 0.45,
+        "precision_at_50": 0.367,
+        "precision_at_100": 0.353
+      },
+      "viirs_history": {
+        "roc_auc": 0.867,
+        "avg_precision": 0.295,
+        "precision_at_20": 0.35,
+        "precision_at_50": 0.493,
+        "precision_at_100": 0.414
+      },
+      "long_harmonized_history": {
+        "roc_auc": 0.869,
+        "avg_precision": 0.303,
+        "precision_at_20": 0.45,
+        "precision_at_50": 0.36,
+        "precision_at_100": 0.41
+      },
+      "gbm": {
+        "roc_auc": 0.875,
+        "avg_precision": 0.294,
+        "precision_at_20": 0.45,
+        "precision_at_50": 0.44,
+        "precision_at_100": 0.39
+      }
+    },
+    "2025": {
+      "burned_last_year": {
+        "roc_auc": 0.743,
+        "avg_precision": 0.249,
+        "precision_at_20": 0.347,
+        "precision_at_50": 0.389,
+        "precision_at_100": 0.42
+      },
+      "viirs_history": {
+        "roc_auc": 0.815,
+        "avg_precision": 0.35,
+        "precision_at_20": 0.75,
+        "precision_at_50": 0.6,
+        "precision_at_100": 0.526
+      },
+      "long_harmonized_history": {
+        "roc_auc": 0.805,
+        "avg_precision": 0.313,
+        "precision_at_20": 0.75,
+        "precision_at_50": 0.5,
+        "precision_at_100": 0.38
+      },
+      "gbm": {
+        "roc_auc": 0.821,
+        "avg_precision": 0.334,
+        "precision_at_20": 0.6,
+        "precision_at_50": 0.48,
+        "precision_at_100": 0.47
+      }
+    },
+    "2026": {
+      "burned_last_year": {
+        "roc_auc": 0.768,
+        "avg_precision": 0.224,
+        "precision_at_20": 0.287,
+        "precision_at_50": 0.369,
+        "precision_at_100": 0.373
+      },
+      "viirs_history": {
+        "roc_auc": 0.847,
+        "avg_precision": 0.323,
+        "precision_at_20": 0.5,
+        "precision_at_50": 0.48,
+        "precision_at_100": 0.437
+      },
+      "long_harmonized_history": {
+        "roc_auc": 0.84,
+        "avg_precision": 0.296,
+        "precision_at_20": 0.4,
+        "precision_at_50": 0.34,
+        "precision_at_100": 0.33
+      },
+      "gbm": {
+        "roc_auc": 0.863,
+        "avg_precision": 0.338,
+        "precision_at_20": 0.6,
+        "precision_at_50": 0.52,
+        "precision_at_100": 0.45
+      }
+    }
+  },
+  "forecast_year": 2027
+}
