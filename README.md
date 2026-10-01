@@ -9,9 +9,12 @@ Chittagong hill districts.
 
 A one-page visual walk-through of the problem and the fix: two sensors, the false jump, the harmonized
 record, and the 16 places to check. It is a single self-contained file, [showcase/index.html](showcase/index.html),
-and needs no server. The repository deploys it on Netlify as is (`netlify.toml` publishes the `showcase` folder).
+with light and dark modes, SRTM relief shading, OpenStreetMap towns and the Sentinel-2 before/after images
+behind each place's burn-scar test. It needs no server; `netlify.toml` publishes the `showcase` folder.
 
-![Interactive explainer](docs/images/showcase-two-eyes.png)
+![Interactive explainer, harmonized record](docs/images/showcase-two-eyes.png)
+
+![Interactive explainer, places to check](docs/images/showcase-places-light.png)
 
 ## The problem
 
