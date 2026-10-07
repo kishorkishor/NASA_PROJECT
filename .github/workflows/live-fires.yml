@@ -1,0 +1,47 @@
+# Live fire watch: every 3 hours, fetch the last 7 days of VIIRS fire detections from NASA FIRMS,
+# place them on the hill grid and publish data/live/live.json to the `live-data` branch.
+# The explainer page reads that file, so main's history stays untouched.
+# Optional: add a FIRMS_MAP_KEY repository secret to use the FIRMS area API instead of the public file.
+name: Live fire watch
+
+on:
+  schedule:
+    - cron: "15 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-fires
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install pandas numpy pyarrow shapely pillow
+
+      - name: Fetch the last 7 days from NASA FIRMS
+        env:
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+        run: python -m backend.pipeline.live
+
+      - name: Publish to the live-data branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir publish && cp data/live/live.json publish/ && cd publish
+          git init -q -b live-data
+          git add live.json
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Live fire data"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:live-data

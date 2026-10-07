@@ -20,6 +20,14 @@ We acknowledge the use of data from NASA's Fire Information for Resource Managem
 MODIS: MCD14ML, doi:10.5067/FIRMS/MODIS/MCD14ML. VIIRS: VNP14IMGTML (see the FIRMS citation guidance at
 https://www.earthdata.nasa.gov/data/tools/firms/faq).
 
+## live/: the last 7 days (not stored in the repository)
+
+`python -m backend.pipeline.live` writes `live/live.json`: VIIRS S-NPP 375 m near-real-time detections for
+the last 7 days, from the public FIRMS file `SUOMI_VIIRS_C2_South_Asia_7d.csv`
+(`firms.modaps.eosdis.nasa.gov/data/active_fire/suomi-npp-viirs-c2/csv/`, no key), or from the FIRMS area
+API (`VIIRS_SNPP_NRT`) when a MAP_KEY is set. The GitHub workflow publishes it to the `live-data` branch every
+3 hours.
+
 ## ref/: reference layers
 
 | File | Source | License |

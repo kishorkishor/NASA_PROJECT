@@ -22,6 +22,9 @@ data/processed/burn_model.joblib
 # Blind-review key: raters must not see it
 data/processed/s2_blind_key.csv
 
+# Live fire watch output (the workflow publishes it to the live-data branch)
+data/live/
+
 # Local output
 *.log
 tools/screenshots/
