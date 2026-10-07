@@ -5,16 +5,22 @@ Chittagong hill districts.
 
 **NASA Space Apps Challenge 2026** · Challenge: *Harmonization of MODIS and VIIRS Hot Spots* · Team feb, Dhaka
 
+New to the topic? Start with [the project in simple words](docs/IN_SIMPLE_WORDS.md).
+
 ## Interactive explainer
 
 A one-page visual walk-through of the problem and the fix: two sensors, the false jump, the harmonized
-record, and the 16 places to check. It is a single self-contained file, [showcase/index.html](showcase/index.html),
-with light and dark modes, SRTM relief shading, OpenStreetMap towns and the Sentinel-2 before/after images
-behind each place's burn-scar test. It needs no server; `netlify.toml` publishes the `showcase` folder.
+record, the 16 places to check, next season's forecast and this week's fires from NASA FIRMS. It is a single
+self-contained file, [showcase/index.html](showcase/index.html), with light and dark modes, SRTM relief
+shading, OpenStreetMap towns and the Sentinel-2 before/after images behind each place's burn-scar test. It
+needs no server; `netlify.toml` publishes the `showcase` folder. The "this week" step reads the live file
+described under [Live fire watch](#live-fire-watch).
 
 ![Interactive explainer, harmonized record](docs/images/showcase-two-eyes.png)
 
 ![Interactive explainer, places to check](docs/images/showcase-places-light.png)
+
+![Interactive explainer, next season's forecast](docs/images/showcase-forecast.png)
 
 ## The problem
 
@@ -38,6 +44,9 @@ would conclude that burning is getting much worse. It is not.
    uses VIIRS fire-days, slope and population. The top places were tested against Sentinel-2 before/after
    imagery.
 4. **A web app** that walks through the false jump, the corrected record, and any place on the map.
+5. **A live fire watch.** Every 3 hours a GitHub workflow fetches the last 7 days of VIIRS detections from
+   NASA FIRMS, places them on the same ~2 km squares and flags fires on steep ground near homes or on the
+   inspection lists ([backend/pipeline/live.py](backend/pipeline/live.py)).
 
 | The false jump | The corrected record |
 |---|---|
@@ -104,6 +113,23 @@ Two optional steps need internet access:
   `FIRMS_MAP_KEY`, then re-run `python -m backend.run_pipeline`. For a new calendar year also raise
   `LAST_YEAR` in `backend/config.py`.
 
+### Live fire watch
+
+```bash
+python -m backend.pipeline.live
+```
+
+writes `data/live/live.json`: the last 7 days of VIIRS S-NPP near-real-time detections over Bangladesh,
+each placed on its ~2 km square, plus the squares that are steep with people living there or on the 2026 or
+2027 "inspect first" list, and the usual number of detections for that week (2012 to 2025 average). No key is
+needed: it reads the public FIRMS 7-day file for South Asia (about 0.5 MB). With `FIRMS_MAP_KEY` set it uses
+the FIRMS area API instead. Detections within about 1 km of a spot that the archive flags as a static heat
+source (FIRMS type 2 or 3) are counted separately.
+
+[.github/workflows/live-fires.yml](.github/workflows/live-fires.yml) runs this every 3 hours and publishes the
+file to the `live-data` branch, where the explainer page reads it; `main` is not touched. To use the area API
+there, add a `FIRMS_MAP_KEY` repository secret.
+
 ## How it works
 
 1. **Footprint.** VIIRS detections are reduced to unique ~1 km cell-days, about the size of a MODIS pixel.
@@ -126,9 +152,11 @@ backend/
   app.py              API and static file server
   config.py           settings (years, grid sizes, thresholds)
   run_pipeline.py     runs every step in order
-  pipeline/           download, prepare, harmonize, terrain, history, model, watchlist, s2check
-  tests/              29 tests
+  pipeline/           download, prepare, harmonize, terrain, history, model, watchlist, s2check, live
+  tests/              34 tests
 frontend/             the web app (HTML, CSS, JavaScript, Leaflet)
+showcase/             the one-page explainer (published by Netlify)
+.github/workflows/    live-fires.yml: the live fire watch, every 3 hours
 data/
   raw/                NASA FIRMS fire detections for Bangladesh
   ref/                boundaries, population, place names
@@ -161,6 +189,8 @@ Sources and licenses for the data files are listed in [data/README.md](data/READ
 - The scoring scales are our own choices. The ranking is sensitive to them, which is why only 16 places
   are marked "inspect first"; that marks stability within our settings, not a probability of being right.
 - The uncertainty band covers the conversion factors only, not missed fires or other error sources.
+- The live view uses near-real-time detections, which carry no fire-type field. Spots that the archive flags
+  as static heat sources are left out, but other industrial or waste fires can still appear.
 - Jhum is a traditional livelihood. The list is meant for safety checks and support together with hill
   communities, and it has not yet been reviewed by people who work there.
 
